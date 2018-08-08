@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE HTML>
+<html>
+<base target="_parent"/>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" media="all" href="/site_media/resources/bootstrap/css/bootstrap.min.css"/>
+    <link href="/site_media/resources/kendo/styles/kendo.common.min.css" rel="stylesheet"/>
+    <link href="/site_media/resources/less/kendo.tb.min.css" rel="stylesheet"/>
+    <link type="text/css" rel="stylesheet" href="/site_media/resources/styles/tb-layout.css"/>
+    <link type="text/css" rel="stylesheet" href="/site_media/resources/styles/tb-styles.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/site_media/stylesheet.css"/>
+    <link rel="stylesheet" type="text/css" href="/site_media/resources/styles/print.css" media="print"/>
+    <link rel="stylesheet" type="text/css" href="/site_media/resources/styles/report.css" media="screen"/>
+
+    <script type="text/javascript" src="/site_media/resources/jquery/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="/site_media/resources/bootstrap/js/bootstrap.min.63efdaa68dbd.js"></script>
+    <script type="text/javascript" src="/site_media/resources/scripts/kendo.custom.min.js"></script>
+
+    <script type="text/javascript"
+            src="/site_media/resources/bootstrap-modal/js/bootstrap-modalmanager.50bbb3f30017.js"></script>
+    <script type="text/javascript"
+            src="/site_media/resources/bootstrap-modal/js/bootstrap-modal.6b96b139b977.js"></script>
+
+
+
+    {% load humanize %}
+
+    {% if autorefresh %}
+        <META HTTP-EQUIV="refresh" CONTENT="15">
+    {% endif %}
+
+    <style type="text/css">
+        body {
+            background: white
+        }
+
+        .flag_size{
+            width:30px;
+            height:30px;
+        }
+
+        .help {
+            cursor: help;
+            border-bottom: 1px dotted #A9A9A9
+        }
+
+        td {
+            word-break: break-all
+        }
+
+
+        a[href]:after { content: ""; }
+
+        a:link:after, a:visited:after {
+            content: "";
+            }
+
+        .k-grid tr td {
+            font-size: 16px !important;
+            font-weight: bold;
+        {#border-right: .5px solid #8f8f8f;#}{#border-left: .5px solid #8f8f8f;#}
+            border-bottom: .5px solid #8f8f8f;
+        {#border-top: .5px solid #8f8f8f;#}
+
+        }
+
+        .link a tr {
+            font-size: 100px;
+            font-weight: bold;
+
+        }
+
+        .k-header {
+            text-align: center;
+        }
+
+        .preformat {
+            white-space: pre
+        }
+
+
+    </style>
+
+</head>
+
+<title>Strain Analysis Report</title>
+<body>
+
+<div class="container-fluid">
+
+    <h1>Strain Analysis Report</h1>
+    <h3>project run by username: {{ run_user_name }}</h3>
+    <h3>plugin run by username: {{ plugin_user_name }}</h3>
+    <h3>plugin run date: {{ date_run }}</h3>
+    <a href={{strain_page_link}}>Strain_Results.html</a>
+    <h2>Strain Summary</h2>
+
+
+    <h4>
+        {#        <b>Library type:</b> {{ library_type }}<br/>#}
+        {% if target_regions %}
+            <b>Target regions:</b> {{ target_regions }}<br/>
+        {% endif %}
+        {% if target_padding and target_padding != '0' %}
+            <b>Target padding:</b> {{ target_padding|intcomma }}<br/>
+        {% endif %}
+        {% if filter_options %}
+            <b>Read filters:</b> {{ filter_options }}<br/>
+        {% endif %}
+    </h4>
+
+    <script type="text/javascript">
+        function numberWithCommas(x) {
+            if (x == null || isNaN(x)) return "NA";
+            var parts = x.toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return parts.join(".");
+        }
+
+        function numberToPercent(x) {
+            if (isNaN(x)) return x;
+            return (100 * x) + "%";
+        }
+
+        function modal_popup(name, url) {
+            console.log(name + " " + url);
+            $("#modal_barcode_len_name").text(name);
+            $("#modal_barcode_len_images").html('<img src="' + url + '"/>');
+            $("#modal_barcode_len").modal('show');
+        }
+
+
+    </script>
+    <!-- Capture django variable in to javascript -->
+    <script>
+        var barcodes_json = {{plugin_results|safe}};
+    </script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (typeof barcodes_json !== 'undefined') {
+                $("#barcodes").kendoGrid({
+                    height: 'auto',
+                    groupable: false,
+                    scrollable: false,
+                    selectable: false,
+                    sortable: {mode: "single", allowUnsort: true},
+                    pageable: {pageSizes: [5, 10, 20, 50, 100]},
+                    dataSource: {
+                        data: barcodes_json,
+                        schema: {
+                            model: {
+                                fields: {
+                                    passed_qc: {type: "string"},
+                                    barcode: {type: "string"},
+                                    accession: {type: "string"},
+                                    strain_id: {type: "string"},
+                                    instance: {type: "string"},
+                                    coverage: {type: "number"},
+                                    genome_size: {type: "number"},
+                                    within_expected_genome_size: {type: "string"},
+                                    pct_q20_bases: {type: "number"},
+                                    {#count_intersection: {type: "number"},#}
+                                    top_hit: {type: "string"},
+                                    {#mlst_profile: {type: "string"},#}
+                                    mongo: {type: "string"},
+                                    backup: {type: "string"},
+                                    histo_image: {type: "string"}
+                                }
+                            }
+                        },
+                        pageSize: 10
+                    },
+                    columns: [
+                        {field: "passed_qc", width: 50, color: "rgb(0,62,117)"},
+                        {field: "barcode", width: 80, color: "rgb(0,62,117)"},
+                        {field: "accession", width: 120},
+                        {field: "strain_id", width: 120},
+                        {field: "instance", width: 50},
+                        {
+                            field: "coverage", headerAttributes: {
+                                style: "text-align: center"
+                            },
+                            width: 50
+                        },
+                        {field: "genome_size", width: 80},
+                        {field: "within_expected_genome_size", width: 50},
+                        {field: "pct_q20_bases", width: 60},
+                        {#{field: "count_intersection", width: 80},#}
+                        {field: "top_hit", width: 200},
+                        {#{field: "mlst_profile", width: 200},#}
+                        {field: "mongo", width: 60},
+                        {field: "backup", width: 60},
+
+                        {
+                            field: "histo_image",
+                            title: "histo_image",
+                            width: 240
+                        }
+                    ],
+                    rowTemplate: kendo.template($("#barcodesRowTemplate").html())
+                });
+            }
+        });
+
+    </script>
+
+    <div>
+        <table id="barcodes" style="width:100%" class="k-grid">
+            <thead>
+            <tr class="k-grid">
+                <th title="{{ help_dict.barcode_name }}">Status</th>
+                <th title="{{ help_dict.barcode_name }}">Barcode</th>
+                <th class=k-header title="{{ help_dict.sample_name }}">Sample_ID</th>
+                <th class=k-header title="{{ help_dict.sample_id }}">Sample</th>
+                <th class=k-header title="{{ help_dict.sample_id }}">Ver</th>
+                <th class=k-header title="{{ help_dict.mapped_reads }}">Coverage</th>
+                <th class=k-header title="{{ help_dict.mapped_reads }}">Genome Size (bp)</th>
+                <th class=k-header title="{{ help_dict.mapped_reads }}">Within Expected Range</th>
+                <th class=k-header title="{{ help_dict.mapped_reads }}">Pct Q20 Bases</th>
+{#                <th class=k-header title="{{ help_dict.mean_depth }}">Count at Intersection</th>#}
+                <th title="{{ help_dict.uniformity }}">Hits</th>
+                <th title="{{ help_dict.uniformity }}">Database</th>
+                <th title="{{ help_dict.uniformity }}">Backed up</th>
+{#                <th class=k-header title="{{ help_dict.uniformity }}">MLST Profile</th>#}
+                <th title="histo">Histogram</th>
+
+
+
+            </tr>
+            </thead>
+            <script id="barcodesRowTemplate" type="text/x-kendo-tmpl">
+      <tr>
+        <td> <a href= #= report_directory #> <img  src= #= qc_icon # /> </a> </td>
+        <td> #= barcode # </td>
+        <td align="left" > #= (accession) ? accession : "None" #</td>
+        <td align="left" > #= (strain_id) ? strain_id : "None" #</td>
+        <td align="left" > #= (strain_instance) ? strain_instance : "-" #</td>
+        <td align="left" style="color: #= coverage_format # ;"> #= numberWithCommas(coverage) # </td>
+        <td align="left" style="color: #= genome_size_format # ;"> #= numberWithCommas(genome_size) # </td>
+        <td title= "#= genome_size_help #" > <img   src= #= genome_size_icon # class="flag_size" /> </td>
+        <td align="left" style="color: #= qc_base_format # ;" > #= pct_q20_bases # </td>
+{#        <td align="left" > #= numberWithCommas(count_intersection) #</td>#}
+        <td align="left" >
+             <a class=link href= #= classifier_html # style="font-size:20px"> <i>#= top_hit_species #</i> (#= top_hit_kid #%) </a>
+        </td>
+{#        <td align="left" class=preformat>#=mlst_profile#</td>#}
+        <td title= "#= mongo_help #" > <img   src= #= mongo_icon # class="flag_size" /> </td>
+        <td title= "#= backup_help #" > <img   src= #= backup_icon # class="flag_size" /> </td>
+        <td> <img  onclick="modal_popup('#= (barcode) #', '#= histo_image #' )"  src= #= histo_image # /></td>
+      </tr>
+            </script>
+        </table>
+    </div>
+
+
+    <div id="modal_barcode_len" class="modal hide" style="width: 1030px; margin-left: -315px;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 id="modal_barcode_len_name">Histogram</h3>
+        </div>
+        <div class="modal-body">
+            <p id="modal_barcode_len_images"></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" data-dismiss="modal" class="btn">Close</a>
+        </div>
+    </div>
+
+
+    {% if not autorefresh %}
+{#        <li>#}
+            {#            <div id="ziplink">#}
+            {#                <script type='text/javascript'>#}
+            {#                    var locpath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));#}
+            {#                    var a = document.createElement('a');#}
+            {#                    var linkText = document.createTextNode('Download a ZIP report summary.');#}
+            {#                    a.appendChild(linkText);#}
+            {#                    a.title = 'Click to save a compressed strain_instance of this report. Unzip coverageAnalysisReport.zip to a local folder on your computer. This will contain PDF images strains of the main reports and primary analysis output files, separated into individual folders for each barcode.';#}
+            {#                    a.href = window.location.protocol + '//' + window.location.host + '/auth' + locpath + '/zipReport.php3';#}
+            {#                    document.getElementById('ziplink').appendChild(a);#}
+            {##}
+            {##}
+            {#                </script>#}
+            {#            </div>#}
+{#        </li>#}
+
+    {% endif %}
+
+    {% if autorefresh %}
+        <br/><h3 style="text-align:center;color:red">*** Analysis is not complete ***</h3>
+        <a href="javascript:document.location.reload();" ONMOUSEOVER="window.status='Refresh'; return true">
+            <div style="text-align:center">Click here to refresh</div>
+        </a>
+    {% endif %}
+
+</div>
+
+<br/>
+
+<br/>
+</body>
+</html>
+

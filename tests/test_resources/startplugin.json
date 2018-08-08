@@ -1,0 +1,615 @@
+{
+    "chefSummary": {
+        "chefChipExpiration1": "None", 
+        "chefChipExpiration2": "None", 
+        "chefChipType1": "530v1", 
+        "chefChipType2": "530v1", 
+        "chefExtraInfo_1": "", 
+        "chefExtraInfo_2": "", 
+        "chefInstrumentName": "10.90.232.168", 
+        "chefKitType": "Ion 510 & Ion 520 & Ion 530 Kit-Chef", 
+        "chefLastUpdate": "2018-03-09T16:04:57Z", 
+        "chefLogPath": "/results/chef_logs/10.90.232.168-000106_rc_2018-3-8_1325.tar.gz", 
+        "chefLotNumber": "", 
+        "chefManufactureDate": "", 
+        "chefMessage": "", 
+        "chefPackageVer": "IC.5.8.0", 
+        "chefProgress": 100, 
+        "chefReagentID": "", 
+        "chefReagentsExpiration": "181130", 
+        "chefReagentsLot": "1936672", 
+        "chefReagentsPart": "A34018C", 
+        "chefSamplePos": "1", 
+        "chefScriptVersion": "704", 
+        "chefSolutionsExpiration": "181031", 
+        "chefSolutionsLot": "1923973", 
+        "chefSolutionsPart": "A27754C", 
+        "chefStatus": "Complete", 
+        "chefTipRackBarcode": "475300061"
+    }, 
+    "datamanagement": {
+        "Basecalling Input": true, 
+        "Intermediate Files": true, 
+        "Output Files": true, 
+        "Signal Processing Input": true
+    }, 
+    "expmeta": {
+        "analysis_date": "2018-03-30", 
+        "barcodeId": "IonCode", 
+        "chipBarcode": "DADK01154", 
+        "chiptype": "530", 
+        "flowOrder": "TACGTACGTCTGAGCATCGATCGATGTACAGC", 
+        "instrument": "S5XL-00717", 
+        "notes": "", 
+        "output_file_name_stem": "3-8-18StrType-Exp1_s5xl_dev_17", 
+        "project": "StrainTyping", 
+        "results_name": "Rename_2", 
+        "run_date": "2018-03-09T18:14:09Z", 
+        "run_flows": 850, 
+        "run_name": "R_2018_03_09_10_12_50_user_S5XL-00717-28-3-8-18StrType-Exp1_foreign", 
+        "runid": "HOOEU", 
+        "sample": "ST-Pos"
+    }, 
+    "globalconfig": {
+        "MEM_MAX": "15G", 
+        "debug": 0
+    }, 
+    "plan": {
+        "applicationGroup_id": 1, 
+        "barcodeId": "IonCode", 
+        "barcodedSamples": {
+            "FID-Keith 1": {
+                "barcodeSampleInfo": {
+                    "IonCode_0111": {
+                        "controlSequenceType": "", 
+                        "controlType": "", 
+                        "description": "FUNGAL", 
+                        "endBarcode": "", 
+                        "externalId": "FID-Keith 1", 
+                        "hotSpotRegionBedFile": "", 
+                        "nucleotideType": "DNA", 
+                        "reference": "", 
+                        "sseBedFile": "", 
+                        "targetRegionBedFile": ""
+                    }
+                }, 
+                "barcodes": [
+                    "IonCode_0111"
+                ], 
+                "dualBarcodes": []
+            }, 
+            "FID-Keith 2": {
+                "barcodeSampleInfo": {
+                    "IonCode_0112": {
+                        "controlSequenceType": "", 
+                        "controlType": "", 
+                        "description": "FUNGAL", 
+                        "endBarcode": "", 
+                        "externalId": "FID-Keith 1", 
+                        "hotSpotRegionBedFile": "", 
+                        "nucleotideType": "DNA", 
+                        "reference": "", 
+                        "sseBedFile": "", 
+                        "targetRegionBedFile": ""
+                    }
+                }, 
+                "barcodes": [
+                    "IonCode_0112"
+                ], 
+                "dualBarcodes": []
+            }, 
+            "ST-148-07": {
+                "barcodeSampleInfo": {
+                    "IonCode_0104": {
+                        "controlSequenceType": "", 
+                        "controlType": "", 
+                        "description": "ST", 
+                        "endBarcode": "", 
+                        "externalId": "09-225-300549", 
+                        "hotSpotRegionBedFile": "", 
+                        "nucleotideType": "DNA", 
+                        "reference": "", 
+                        "sseBedFile": "", 
+                        "targetRegionBedFile": ""
+                    }
+                }, 
+                "barcodes": [
+                    "IonCode_0104"
+                ], 
+                "dualBarcodes": []
+            }, 
+            "ST-154-73": {
+                "barcodeSampleInfo": {
+                    "IonCode_0110": {
+                        "controlSequenceType": "", 
+                        "controlType": "", 
+                        "description": "ST", 
+                        "endBarcode": "", 
+                        "externalId": "11-031-300359", 
+                        "hotSpotRegionBedFile": "", 
+                        "nucleotideType": "DNA", 
+                        "reference": "", 
+                        "sseBedFile": "", 
+                        "targetRegionBedFile": ""
+                    }
+                }, 
+                "barcodes": [
+                    "IonCode_0110"
+                ], 
+                "dualBarcodes": []
+            }, 
+            "ST-154-90": {
+                "barcodeSampleInfo": {
+                    "IonCode_0109": {
+                        "controlSequenceType": "", 
+                        "controlType": "", 
+                        "description": "ST", 
+                        "endBarcode": "", 
+                        "externalId": "10-120-130580", 
+                        "hotSpotRegionBedFile": "", 
+                        "nucleotideType": "DNA", 
+                        "reference": "", 
+                        "sseBedFile": "", 
+                        "targetRegionBedFile": ""
+                    }
+                }, 
+                "barcodes": [
+                    "IonCode_0109"
+                ], 
+                "dualBarcodes": []
+            }, 
+            "ST-154-92": {
+                "barcodeSampleInfo": {
+                    "IonCode_0106": {
+                        "controlSequenceType": "", 
+                        "controlType": "", 
+                        "description": "ST", 
+                        "endBarcode": "", 
+                        "externalId": "10-120-130580", 
+                        "hotSpotRegionBedFile": "", 
+                        "nucleotideType": "DNA", 
+                        "reference": "", 
+                        "sseBedFile": "", 
+                        "targetRegionBedFile": ""
+                    }
+                }, 
+                "barcodes": [
+                    "IonCode_0106"
+                ], 
+                "dualBarcodes": []
+            }, 
+            "ST-171-53": {
+                "barcodeSampleInfo": {
+                    "IonCode_0108": {
+                        "controlSequenceType": "", 
+                        "controlType": "", 
+                        "description": "ST", 
+                        "endBarcode": "", 
+                        "externalId": "11-358-106002", 
+                        "hotSpotRegionBedFile": "", 
+                        "nucleotideType": "DNA", 
+                        "reference": "", 
+                        "sseBedFile": "", 
+                        "targetRegionBedFile": ""
+                    }
+                }, 
+                "barcodes": [
+                    "IonCode_0108"
+                ], 
+                "dualBarcodes": []
+            }, 
+            "ST-172-14": {
+                "barcodeSampleInfo": {
+                    "IonCode_0107": {
+                        "controlSequenceType": "", 
+                        "controlType": "", 
+                        "description": "ST", 
+                        "endBarcode": "", 
+                        "externalId": "12-034-121204", 
+                        "hotSpotRegionBedFile": "", 
+                        "nucleotideType": "DNA", 
+                        "reference": "", 
+                        "sseBedFile": "", 
+                        "targetRegionBedFile": ""
+                    }
+                }, 
+                "barcodes": [
+                    "IonCode_0107"
+                ], 
+                "dualBarcodes": []
+            }, 
+            "ST-187-79": {
+                "barcodeSampleInfo": {
+                    "IonCode_0105": {
+                        "controlSequenceType": "", 
+                        "controlType": "", 
+                        "description": "ST", 
+                        "endBarcode": "", 
+                        "externalId": "13-210-502611", 
+                        "hotSpotRegionBedFile": "", 
+                        "nucleotideType": "DNA", 
+                        "reference": "", 
+                        "sseBedFile": "", 
+                        "targetRegionBedFile": ""
+                    }
+                }, 
+                "barcodes": [
+                    "IonCode_0105"
+                ], 
+                "dualBarcodes": []
+            }, 
+            "ST-A204-094": {
+                "barcodeSampleInfo": {
+                    "IonCode_0101": {
+                        "controlSequenceType": "", 
+                        "controlType": "", 
+                        "description": "ST", 
+                        "endBarcode": "", 
+                        "externalId": "16-112-400676", 
+                        "hotSpotRegionBedFile": "", 
+                        "nucleotideType": "DNA", 
+                        "reference": "", 
+                        "sseBedFile": "", 
+                        "targetRegionBedFile": ""
+                    }
+                }, 
+                "barcodes": [
+                    "IonCode_0101"
+                ], 
+                "dualBarcodes": []
+            }, 
+            "ST-A204-095": {
+                "barcodeSampleInfo": {
+                    "IonCode_0102": {
+                        "controlSequenceType": "", 
+                        "controlType": "", 
+                        "description": "ST", 
+                        "endBarcode": "", 
+                        "externalId": "16-112-400676", 
+                        "hotSpotRegionBedFile": "", 
+                        "nucleotideType": "DNA", 
+                        "reference": "", 
+                        "sseBedFile": "", 
+                        "targetRegionBedFile": ""
+                    }
+                }, 
+                "barcodes": [
+                    "IonCode_0102"
+                ], 
+                "dualBarcodes": []
+            }, 
+            "ST-A204-097": {
+                "barcodeSampleInfo": {
+                    "IonCode_0103": {
+                        "controlSequenceType": "", 
+                        "controlType": "", 
+                        "description": "ST", 
+                        "endBarcode": "", 
+                        "externalId": "16-112-400676", 
+                        "hotSpotRegionBedFile": "", 
+                        "nucleotideType": "DNA", 
+                        "reference": "", 
+                        "sseBedFile": "", 
+                        "targetRegionBedFile": ""
+                    }
+                }, 
+                "barcodes": [
+                    "IonCode_0103"
+                ], 
+                "dualBarcodes": []
+            }, 
+            "ST-Neg": {
+                "barcodeSampleInfo": {
+                    "IonCode_0114": {
+                        "controlSequenceType": "", 
+                        "controlType": "", 
+                        "description": "STC", 
+                        "endBarcode": "", 
+                        "externalId": "ST-Neg", 
+                        "hotSpotRegionBedFile": "", 
+                        "nucleotideType": "DNA", 
+                        "reference": "", 
+                        "sseBedFile": "", 
+                        "targetRegionBedFile": ""
+                    }
+                }, 
+                "barcodes": [
+                    "IonCode_0114"
+                ], 
+                "dualBarcodes": []
+            }, 
+            "ST-Pos": {
+                "barcodeSampleInfo": {
+                    "IonCode_0113": {
+                        "controlSequenceType": "", 
+                        "controlType": "", 
+                        "description": "STC", 
+                        "endBarcode": "", 
+                        "externalId": "ST-Pos", 
+                        "hotSpotRegionBedFile": "", 
+                        "nucleotideType": "DNA", 
+                        "reference": "", 
+                        "sseBedFile": "", 
+                        "targetRegionBedFile": ""
+                    }
+                }, 
+                "barcodes": [
+                    "IonCode_0113"
+                ], 
+                "dualBarcodes": []
+            }
+        }, 
+        "bedfile": "", 
+        "controlSequencekitname": "", 
+        "endBarcodeKitName": "", 
+        "librarykitname": "Ion Xpress Plus Fragment Library Kit", 
+        "planName": "3-8-18StrType-Exp1", 
+        "regionfile": "", 
+        "reverse_primer": null, 
+        "runMode": "single", 
+        "runType": "WGNM", 
+        "runTypeDescription": "Whole Genome", 
+        "sampleGrouping": null, 
+        "samplePrepKitName": "", 
+        "sampleTubeLabel": "", 
+        "sequencekitname": "Ion S5 Sequencing Kit", 
+        "sseBedFile": "", 
+        "templatingKitName": "Ion Chef S530 V2", 
+        "threePrimeAdapter": "ATCACCGACTGCCCATAGAGAGGCTGAGAC", 
+        "username": "ionadmin"
+    }, 
+    "pluginconfig": {}, 
+    "runinfo": {
+        "alignment_dir": "/results/analysis/output/Home/Rename_2_017", 
+        "analysis_dir": "/results/analysis/output/Home/Rename_2_017", 
+        "api_key": "9dcfa102d4ebdc7336b8eaff8739204b68f0dc7e", 
+        "api_url": "http://s5xldev/rundb/api", 
+        "barcodeId": "IonCode", 
+        "basecaller_dir": "/results/analysis/output/Home/Rename_2_017/basecaller_results", 
+        "chipDescription": "530", 
+        "chipType": "530", 
+        "library": "none", 
+        "library_key": "TCAG", 
+        "net_location": "http://s5xldev", 
+        "pk": 17, 
+        "platform": "s5", 
+        "plugin": {
+            "depends": [], 
+            "features": [], 
+            "hold_jid": [], 
+            "id": 43, 
+            "name": "StrainConstructMer", 
+            "path": "/results/plugins/StrainConstructMer", 
+            "pluginconfig": {}, 
+            "pluginresult": 795, 
+            "results_dir": "/results/analysis/output/Home/Rename_2_017/plugin_out/StrainConstructMer_out.795", 
+            "runlevels": [
+                "default"
+            ], 
+            "runtypes": [
+                "wholechip", 
+                "thumbnail", 
+                "composite"
+            ], 
+            "userInput": "", 
+            "version": "1.0.0.0"
+        }, 
+        "plugin_dir": "/results/plugins/StrainConstructMer", 
+        "plugin_name": "StrainConstructMer", 
+        "pluginresult": 795, 
+        "raw_data_dir": "/results/uploads/Auto_user_S5XL-00717-28-3-8-18StrType-Exp1_190_096_foreign", 
+        "report_root_dir": "/results/analysis/output/Home/Rename_2_017", 
+        "results_dir": "/results/analysis/output/Home/Rename_2_017/plugin_out/StrainConstructMer_out.795", 
+        "sigproc_dir": "/results/analysis/output/Home/Rename_2_017/sigproc_results", 
+        "systemType": "S5XL", 
+        "testfrag_key": "ATCG", 
+        "tmap_version": "tmap-f3", 
+        "url_root": "/output/Home/Rename_2_017", 
+        "username": "ionadmin"
+    }, 
+    "runplugin": {
+        "blockId": "", 
+        "block_dirs": [
+            "/results/analysis/output/Home/Rename_2_017/block_X5760_Y664", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1920_Y0", 
+            "/results/analysis/output/Home/Rename_2_017/block_X640_Y0", 
+            "/results/analysis/output/Home/Rename_2_017/block_X0_Y0", 
+            "/results/analysis/output/Home/Rename_2_017/block_X4480_Y0", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3840_Y0", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3200_Y0", 
+            "/results/analysis/output/Home/Rename_2_017/block_X5760_Y0", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3200_Y4648", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1280_Y3320", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1280_Y4648", 
+            "/results/analysis/output/Home/Rename_2_017/block_X0_Y4648", 
+            "/results/analysis/output/Home/Rename_2_017/block_X5120_Y3984", 
+            "/results/analysis/output/Home/Rename_2_017/block_X5760_Y4648", 
+            "/results/analysis/output/Home/Rename_2_017/block_X6400_Y0", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1920_Y4648", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1280_Y664", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1920_Y664", 
+            "/results/analysis/output/Home/Rename_2_017/block_X2560_Y664", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3200_Y664", 
+            "/results/analysis/output/Home/Rename_2_017/block_X7040_Y0", 
+            "/results/analysis/output/Home/Rename_2_017/block_X640_Y664", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3840_Y664", 
+            "/results/analysis/output/Home/Rename_2_017/block_X4480_Y664", 
+            "/results/analysis/output/Home/Rename_2_017/block_X2560_Y3984", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1920_Y2656", 
+            "/results/analysis/output/Home/Rename_2_017/block_X6400_Y4648", 
+            "/results/analysis/output/Home/Rename_2_017/block_X7040_Y4648", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3840_Y4648", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3840_Y2656", 
+            "/results/analysis/output/Home/Rename_2_017/block_X5120_Y4648", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3200_Y2656", 
+            "/results/analysis/output/Home/Rename_2_017/block_X6400_Y3320", 
+            "/results/analysis/output/Home/Rename_2_017/block_X5120_Y2656", 
+            "/results/analysis/output/Home/Rename_2_017/block_X640_Y4648", 
+            "/results/analysis/output/Home/Rename_2_017/block_X640_Y3320", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1920_Y3320", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3200_Y3320", 
+            "/results/analysis/output/Home/Rename_2_017/block_X2560_Y3320", 
+            "/results/analysis/output/Home/Rename_2_017/block_X4480_Y3320", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3840_Y3320", 
+            "/results/analysis/output/Home/Rename_2_017/block_X5120_Y3320", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1280_Y0", 
+            "/results/analysis/output/Home/Rename_2_017/block_X6400_Y1992", 
+            "/results/analysis/output/Home/Rename_2_017/block_X640_Y2656", 
+            "/results/analysis/output/Home/Rename_2_017/block_X2560_Y0", 
+            "/results/analysis/output/Home/Rename_2_017/block_X4480_Y4648", 
+            "/results/analysis/output/Home/Rename_2_017/block_X0_Y3984", 
+            "/results/analysis/output/Home/Rename_2_017/block_X0_Y3320", 
+            "/results/analysis/output/Home/Rename_2_017/block_X7040_Y3320", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3200_Y3984", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1280_Y3984", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3840_Y3984", 
+            "/results/analysis/output/Home/Rename_2_017/block_X4480_Y3984", 
+            "/results/analysis/output/Home/Rename_2_017/block_X5120_Y0", 
+            "/results/analysis/output/Home/Rename_2_017/block_X5760_Y3320", 
+            "/results/analysis/output/Home/Rename_2_017/block_X7040_Y1992", 
+            "/results/analysis/output/Home/Rename_2_017/block_X5760_Y1992", 
+            "/results/analysis/output/Home/Rename_2_017/block_X5120_Y1992", 
+            "/results/analysis/output/Home/Rename_2_017/block_X4480_Y1992", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3840_Y1992", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3200_Y1992", 
+            "/results/analysis/output/Home/Rename_2_017/block_X0_Y2656", 
+            "/results/analysis/output/Home/Rename_2_017/block_X2560_Y1992", 
+            "/results/analysis/output/Home/Rename_2_017/block_X7040_Y3984", 
+            "/results/analysis/output/Home/Rename_2_017/block_X6400_Y3984", 
+            "/results/analysis/output/Home/Rename_2_017/block_X6400_Y2656", 
+            "/results/analysis/output/Home/Rename_2_017/block_X7040_Y2656", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1280_Y1992", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1280_Y2656", 
+            "/results/analysis/output/Home/Rename_2_017/block_X2560_Y2656", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1920_Y1992", 
+            "/results/analysis/output/Home/Rename_2_017/block_X4480_Y2656", 
+            "/results/analysis/output/Home/Rename_2_017/block_X5760_Y2656", 
+            "/results/analysis/output/Home/Rename_2_017/block_X640_Y1992", 
+            "/results/analysis/output/Home/Rename_2_017/block_X5760_Y3984", 
+            "/results/analysis/output/Home/Rename_2_017/block_X5120_Y1328", 
+            "/results/analysis/output/Home/Rename_2_017/block_X5760_Y1328", 
+            "/results/analysis/output/Home/Rename_2_017/block_X4480_Y1328", 
+            "/results/analysis/output/Home/Rename_2_017/block_X2560_Y1328", 
+            "/results/analysis/output/Home/Rename_2_017/block_X640_Y3984", 
+            "/results/analysis/output/Home/Rename_2_017/block_X640_Y1328", 
+            "/results/analysis/output/Home/Rename_2_017/block_X0_Y1328", 
+            "/results/analysis/output/Home/Rename_2_017/block_X5120_Y664", 
+            "/results/analysis/output/Home/Rename_2_017/block_X7040_Y664", 
+            "/results/analysis/output/Home/Rename_2_017/block_X6400_Y664", 
+            "/results/analysis/output/Home/Rename_2_017/block_X2560_Y4648", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1920_Y3984", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1280_Y1328", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3200_Y1328", 
+            "/results/analysis/output/Home/Rename_2_017/block_X0_Y1992", 
+            "/results/analysis/output/Home/Rename_2_017/block_X6400_Y1328", 
+            "/results/analysis/output/Home/Rename_2_017/block_X7040_Y1328", 
+            "/results/analysis/output/Home/Rename_2_017/block_X0_Y664", 
+            "/results/analysis/output/Home/Rename_2_017/block_X3840_Y1328", 
+            "/results/analysis/output/Home/Rename_2_017/block_X1920_Y1328"
+        ], 
+        "numBlocks": 96, 
+        "run_mode": "manual", 
+        "run_type": "composite", 
+        "runlevel": "default"
+    }, 
+    "sampleinfo": {
+        "FID-Keith 1": {
+            "attributes": {}, 
+            "description": "FUNGAL", 
+            "displayedName": "FID-Keith 1", 
+            "externalId": "FID-Keith 1", 
+            "name": "FID-Keith_1"
+        }, 
+        "FID-Keith 2": {
+            "attributes": {}, 
+            "description": "FUNGAL", 
+            "displayedName": "FID-Keith 2", 
+            "externalId": "FID-Keith 1", 
+            "name": "FID-Keith_2"
+        }, 
+        "ST-148-07": {
+            "attributes": {}, 
+            "description": "ST", 
+            "displayedName": "ST-148-07", 
+            "externalId": "09-225-300549", 
+            "name": "ST-148-07"
+        }, 
+        "ST-154-73": {
+            "attributes": {}, 
+            "description": "ST", 
+            "displayedName": "ST-154-73", 
+            "externalId": "11-031-300359", 
+            "name": "ST-154-73"
+        }, 
+        "ST-154-90": {
+            "attributes": {}, 
+            "description": "ST", 
+            "displayedName": "ST-154-90", 
+            "externalId": "10-120-130580", 
+            "name": "ST-154-90"
+        }, 
+        "ST-154-92": {
+            "attributes": {}, 
+            "description": "ST", 
+            "displayedName": "ST-154-92", 
+            "externalId": "10-120-130580", 
+            "name": "ST-154-92"
+        }, 
+        "ST-171-53": {
+            "attributes": {}, 
+            "description": "ST", 
+            "displayedName": "ST-171-53", 
+            "externalId": "11-358-106002", 
+            "name": "ST-171-53"
+        }, 
+        "ST-172-14": {
+            "attributes": {}, 
+            "description": "ST", 
+            "displayedName": "ST-172-14", 
+            "externalId": "12-034-121204", 
+            "name": "ST-172-14"
+        }, 
+        "ST-187-79": {
+            "attributes": {}, 
+            "description": "ST", 
+            "displayedName": "ST-187-79", 
+            "externalId": "13-210-502611", 
+            "name": "ST-187-79"
+        }, 
+        "ST-A204-094": {
+            "attributes": {}, 
+            "description": "ST", 
+            "displayedName": "ST-A204-094", 
+            "externalId": "16-112-400676", 
+            "name": "ST-A204-094"
+        }, 
+        "ST-A204-095": {
+            "attributes": {}, 
+            "description": "ST", 
+            "displayedName": "ST-A204-095", 
+            "externalId": "16-112-400676", 
+            "name": "ST-A204-095"
+        }, 
+        "ST-A204-097": {
+            "attributes": {}, 
+            "description": "ST", 
+            "displayedName": "ST-A204-097", 
+            "externalId": "16-112-400676", 
+            "name": "ST-A204-097"
+        }, 
+        "ST-Neg": {
+            "attributes": {}, 
+            "description": "STC", 
+            "displayedName": "ST-Neg", 
+            "externalId": "ST-Neg", 
+            "name": "ST-Neg"
+        }, 
+        "ST-Pos": {
+            "attributes": {}, 
+            "description": "STC", 
+            "displayedName": "ST-Pos", 
+            "externalId": "ST-Pos", 
+            "name": "ST-Pos"
+        }
+    }
+}

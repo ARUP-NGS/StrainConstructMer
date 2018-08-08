@@ -1,0 +1,160 @@
+<html>
+<head>
+
+    <script src="slickgrid/lib/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
+<script src="slickgrid/lib/jquery.event.drag-2.0.min.js"></script>
+<script src="slickgrid/slick.core.js"></script>
+<script src="slickgrid/slick.grid.js"></script>
+<script src="slickgrid/plugins/slick.rowselectionmodel.js"></script>
+<script src="slickgrid/slick.dataview.js"></script>
+<script src="lifegrid/lifegrid.js"></script>
+
+
+<script src="lifegrid/allelesTable.js"></script>
+<script src="bootstrap-select.js"></script>
+<script src="bootbox.min.js"></script>
+
+<style>
+
+
+
+        table {
+
+            width: 100%;
+             padding:5px;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			margin-right: 30px;
+			margin-left: 30px;
+        }
+        tr:nth-child(even) {background-color: #f2f2f2}
+        tr{
+
+        }
+        th{
+            text-align: center;
+
+        }
+
+        th, td {
+        border-bottom: 1px solid #ddd;
+
+			margin-top: 5px;
+			margin-bottom: 5px;
+			margin-right: 30px;
+			margin-left: 30px;
+        }
+
+        tr:hover {background-color: #f5f5f5}
+
+    </style>
+
+</head>
+    <body>
+
+    <h2>StrainTypeMer </h2>
+
+    <h4>Configuration:</h4>
+    <ul>
+        <li>Compression level: {{ compression }}</li>
+        <li>Reads cutoff: {{ subsample }}</li>
+        <li>NOT VALIDATED</li>
+    <ul>
+
+
+
+
+
+    <h3>Results Summary:</h3>
+    <div style="overflow-x:auto;">
+    <table>
+        <tr>
+            <th>Barcode</th>
+            <th>Sample Name</th>
+            <th>kmer Length</th>
+            <th>Passing kmers</th>
+            <th>Failing kmers</th>
+            <th>Tail Depth</th>
+            <th>Coverage</th>
+            <th>Frequency Cutoff</th>
+        </tr>
+        {% for strain in strains %}
+        <tr>
+            <th>{{ strain.barcode }}</th>
+            <th>{{ strain.name }}</th>
+            <th>{{ strain.kmer_size }}</th>
+            <th>{{ strain.passing_kmers|length }}</th>
+            <th>{{ strain.failing_kmers|length }}</th>
+            <th>{{ strain.tail_depth}}</th>
+            <th>{{ strain.coverage }}</th>
+            <th>{{ strain.frequency_cutoff }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+
+    <h3>Failed Samples:</h3>
+    <div style="overflow-x:auto;">
+
+    <table>
+        <tr>
+            <th>Barcode</th>
+            <th>Sample Name</th>
+            <th>Read Count</th>
+            <th>Bam Path</th>
+        </tr>
+        {% for strain in failed_strains %}
+        <tr>
+            <th>{{ strain.barcode }}</th>
+            <th>{{ strain.sample_name }}</th>
+            <th>{{ strain.read_count }}</th>
+            <th>{{ strain.bam_file_path }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+
+    <div>
+  <table id="barcodes" style="width:100%">
+    <thead>
+    <tr>
+      <th title="">Barcode Name</th>
+      <th title="">Sample</th>
+      <th title="">Mapped Reads</th>
+{% if trg_stats %}
+      <th title="">On Target</th>
+{% endif %}
+{% if samp_track %}
+      <th title="">SampleID</th>
+{% endif %}
+{% if bas_stats %}
+      <th title="">Mean Depth</th>
+      <th title="">Uniformity</th>
+{% endif %}
+    </tr>
+    </thead>
+    <script id="barcodesRowTemplate" type="text/x-kendo-tmpl">
+      <tr>
+        <td> #= barcode_details #</td>
+        <td> #= (sample) ? sample : "None" #</td>
+        <td> #= numberWithCommas(mapped_reads) # </td>
+{% if trg_stats %}
+        <td>#= numberToPercent(on_target) #</td>
+{% endif %}
+{% if samp_track %}
+        <td>#= numberToPercent(sample_target) #</td>
+{% endif %}
+{% if bas_stats %}
+        <td>#= numberWithCommas(mean_depth) #</td>
+        <td>#= numberToPercent(uniformity) #</td>
+{% endif %}
+      </tr>
+    </script>
+  </table>
+</div>
+
+
+ </body>
+</html>
+
+

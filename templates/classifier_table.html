@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE HTML>
+<html>
+<base target="_parent"/>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" media="all" href="/site_media/resources/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" media="all" href="/site_media/resources/bootstrap/css/bootstrap.min.dd314163fab1.css" />
+    <link href="/site_media/resources/kendo/styles/kendo.common.min.css" rel="stylesheet"/>
+    <link href="/site_media/resources/less/kendo.tb.min.css" rel="stylesheet"/>
+    <link type="text/css" rel="stylesheet" href="/site_media/resources/styles/tb-layout.css"/>
+    <link type="text/css" rel="stylesheet" href="/site_media/resources/styles/tb-styles.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/site_media/stylesheet.css"/>
+    <link rel="stylesheet" type="text/css" href="/site_media/resources/styles/print.css" media="print"/>
+    <link rel="stylesheet" type="text/css" href="/site_media/resources/styles/report.css" media="screen"/>
+
+    <script type="text/javascript" src="/site_media/resources/jquery/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="/site_media/resources/bootstrap/js/bootstrap.min.63efdaa68dbd.js"></script>
+    <script type="text/javascript" src="/site_media/resources/scripts/kendo.custom.min.js"></script>
+
+    <script type="text/javascript"
+            src="/site_media/resources/bootstrap-modal/js/bootstrap-modalmanager.50bbb3f30017.js"></script>
+    <script type="text/javascript"
+            src="/site_media/resources/bootstrap-modal/js/bootstrap-modal.6b96b139b977.js"></script>
+
+    {% load humanize %}
+
+    {% if autorefresh %}
+        <META HTTP-EQUIV="refresh" CONTENT="15">
+    {% endif %}
+
+    <style type="text/css">
+        body {
+            background: white
+        }
+
+        .help {
+            cursor: help;
+            border-bottom: 1px dotted #A9A9A9
+        }
+
+        td {
+            word-break: break-all
+        }
+
+        .preformat {
+            white-space: pre
+        }
+
+        .k-grid tr td {
+            font-size: 16px;
+            font-weight: bold;
+        {#border-right: .5px solid #8f8f8f;#}{#border-left: .5px solid #8f8f8f;#} border-bottom: .5px solid #8f8f8f;
+        {#border-top: .5px solid #8f8f8f;#}
+
+        }
+
+        .k-header {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<div id="file_browse">
+
+<h3>
+    <a class="btn" href={{ pk }}>Back to Report</a>
+{#    <a href="/report/9/metal/">Root</a> /#}
+{#    #}
+{#        <a href="/report/9/metal/plugin_out">plugin_out</a> /#}
+{#    #}
+{#        <a href="/report/9/metal/plugin_out/PluginStrainTyping_out.320">PluginStrainTyping_out.320</a> /#}
+{#    #}
+{#        <a href="/report/9/metal/plugin_out/PluginStrainTyping_out.320/IonCode_0401">IonCode_0401</a> /#}
+
+</h3>
+
+<title>Classifier Hits</title>
+<body>
+
+<div class="container-fluid">
+
+    <h1>Classifier Hits</h1>
+    <h3>project run by username: {{ run_user_name }}</h3>
+    <h3>plugin run by username: {{ plugin_user_name }}</h3>
+    <h3>plugin run date: {{ date_run }}</h3>
+    <h3>Sample barcode: {{ barcode }}</h3>
+    <h3>Sample name: {{ sample }}</h3>
+
+
+    <script type="text/javascript">
+        function numberWithCommas(x) {
+            if (x == null || isNaN(x)) return "NA";
+            var parts = x.toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return parts.join(".");
+        }
+
+        function numberToPercent(x) {
+            if (isNaN(x)) return x;
+            return (100 * x) + "%";
+        }
+
+
+
+    </script>
+
+    <!-- Capture django variable in to javascript -->
+    <script>
+        var classifier_hits = {{strain_results|safe}};
+    </script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (typeof classifier_hits !== 'undefined') {
+                $("#barcodes").kendoGrid({
+                    height: 'auto',
+                    groupable: false,
+                    scrollable: false,
+                    selectable: false,
+                    sortable: {mode: "single", allowUnsort: true},
+                    pageable: {pageSizes: [5, 10, 20, 50, 100]},
+                    dataSource: {
+                        data: classifier_hits,
+                        schema: {
+                            model: {
+                                fields: {
+                                    kmer_identity: {type: "number"},
+                                    species: {type: "string"},
+                                    accession: {type: "string"},
+                                    predicted_size: {type: "number"},
+                                    median_genome_size_species: {type: "number"},
+                                    min_genome_size_species: {type: "number"},
+                                    max_genome_size_species: {type: "number"},
+                                    median_genome_size_genus: {type: "number"},
+                                    min_genome_size_genus: {type: "number"},
+                                    max_genome_size_genus: {type: "number"}
+                                }
+                            }
+                        },
+                        pageSize: 50
+                    },
+                    columns: [
+                        {field: "kmer_identity", width: 70, color: "rgb(0,62,117)"},
+                        {field: "species", width: 200, color: "rgb(0,62,117)"},
+                        {field: "accession", width: 150, color: "rgb(0,62,117)"},
+                        {field: "predicted_size", width: 100, color: "rgb(0,62,117)"},
+
+                        {field: "median_genome_size_species", width: 100, color: "rgb(0,62,117)"},
+                        {field: "min_genome_size_species", width: 100, color: "rgb(0,62,117)"},
+                        {field: "max_genome_size_species", width: 100, color: "rgb(0,62,117)"},
+                        {field: "median_genome_size_genus", width: 100, color: "rgb(0,62,117)"},
+                        {field: "min_genome_size_genus", width: 100, color: "rgb(0,62,117)"},
+                        {field: "max_genome_size_genus", width: 100, color: "rgb(0,62,117)"}
+                    ],
+                    rowTemplate: kendo.template($("#barcodesRowTemplate").html())
+                });
+            }
+        });
+
+    </script>
+
+    <div>
+        <table id="barcodes" style="width:100%" class="k-grid">
+            <thead>
+            <tr class="k-grid">
+                <th title="{{ help_dict.barcode_name }}">kmer Identity</th>
+                <th title="{{ help_dict.barcode_name }}">Species</th>
+                <th class=k-header title="{{ help_dict.mapped_reads }}">Accession</th>
+                <th class=k-header title="{{ help_dict.sample_name }}">Predicted Size for Strain</th>
+                <th class=k-header title="{{ help_dict.mapped_reads }}">Median Genome Size Species</th>
+                <th class=k-header title="{{ help_dict.mapped_reads }}">Min Genome Size Species</th>
+                <th class=k-header title="{{ help_dict.mean_depth }}">Max Genome Size Species</th>
+                <th class=k-header title="{{ help_dict.mapped_reads }}">Median Genome Size Genus</th>
+                <th class=k-header title="{{ help_dict.mapped_reads }}">Min Genome Size Genus</th>
+                <th class=k-header title="{{ help_dict.mean_depth }}">Max Genome Size Genus</th>
+            </tr>
+            </thead>
+            <script id="barcodesRowTemplate" type="text/x-kendo-tmpl">
+        <tr>
+            <td align="left" > #= kmer_identity # </td>
+            <td align="left" > <i> #= species # </i> </td>
+            <td align="left" > #= accession # </td>
+            <td align="left" > <i> #= numberWithCommas(predicted_size) # </i> </td>
+
+            <td align="left" > #= numberWithCommas(median_genome_size_species) # </td>
+            <td align="left" > #= numberWithCommas(min_genome_size_species) # </td>
+            <td align="left" > #= numberWithCommas(max_genome_size_species) # </td>
+            <td align="left" > #= numberWithCommas(median_genome_size_genus) # </td>
+            <td align="left" > #= numberWithCommas(min_genome_size_genus) # </td>
+            <td align="left" > #= numberWithCommas(max_genome_size_genus) # </td>
+        </tr>
+
+
+            </script>
+        </table>
+    </div>
+
+
+    {% if not autorefresh %}
+        <li>
+            <div id="ziplink">
+                <script type='text/javascript'>
+                    var locpath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+                    var a = document.createElement('a');
+                    var linkText = document.createTextNode('Download a ZIP report summary.');
+                    a.appendChild(linkText);
+                    a.title = 'Click to save a compressed strain_instance of this report. Unzip coverageAnalysisReport.zip to a local folder on your computer. This will contain PDF images versions of the main reports and primary analysis output files, separated into individual folders for each barcode.';
+                    a.href = window.location.protocol + '//' + window.location.host + '/auth' + locpath + '/zipReport.php3';
+                    document.getElementById('ziplink').appendChild(a);
+
+
+                </script>
+            </div>
+        </li>
+
+    {% endif %}
+
+    {% if autorefresh %}
+        <br/><h3 style="text-align:center;color:red">*** Analysis is not complete ***</h3>
+        <a href="javascript:document.location.reload();" ONMOUSEOVER="window.status='Refresh'; return true">
+            <div style="text-align:center">Click here to refresh</div>
+        </a>
+    {% endif %}
+
+</div>
+
+<br/>
+
+<br/>
+</body>
+</html>
+
