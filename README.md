@@ -43,7 +43,7 @@ make -j 4
 sudo make install
 
 # test command
-$> /results/plugins/scratch/apps/jellyfish-2.2.7/bin/jellyfish
+$: /results/plugins/scratch/apps/jellyfish-2.2.7/bin/jellyfish
 # should return
 ...Too few arguments
 ...Usage: jellyfish <cmd> [options] arg...
@@ -62,19 +62,16 @@ ____
 4. Install the zip file throught the Torrent Server Plugin interface
 
 ___
-## Preparing a Release
+## Usage
 
-Software is released in the Dev, Cert, Prod enviroment.  To release a verion do the following
+__StrainConstructMer__ will process all the sample on a project.  No input are configuration is required.
 
-1. Create a Branch
-2. Rename the `StrainConstructMer` python file and `Class` to include the release name
-    1. Example. `StrainConstructMer_DEV`
-3. Create a release on `github`
-4. Download `Zip` File and install through plugin TS interface
-5. Run test on command line
-___
 
-## limitations and notes
+[]
+
+
+
+## Limitations and notes
 
 #### Sample database and backups
 `StrainCompareMer` relies on samples to be run through `StrainConstructMer`. `StrainConstructMer` therefore writes information
@@ -108,4 +105,14 @@ easier to remove errors from the dataset.
     * Genome size within 10% of min and max for species or genus (only used for *Acinetobacter*, *Staphylococcus*, and *Enterococcus*)
     
 
+## Preparing a Release
 
+Software is released in the Dev, Cert, Prod enviroment.  To release a verion do the following
+
+1. Create a Branch
+2. Rename the `StrainConstructMer` python file and `Class` to include the release name
+    1. Example. `StrainConstructMer_DEV`
+3. Create a release on `github`
+4. Download `Zip` File and install through plugin TS interface
+5. Run test on command line
+___
