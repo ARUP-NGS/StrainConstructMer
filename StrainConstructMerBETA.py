@@ -30,7 +30,7 @@ class StrainConstructMerBETA(IonPlugin):
     most of the strain setup should passed to the strain typing module located in this project
     This entry point handles workflow and builds the UI.
     """
-    version = "1.0.0.0"  # MAJOR.MINOR.REVISION.BUILD
+    version = "1.0.0.1"  # MAJOR.MINOR.REVISION.BUILD
     DB_NAME = "STRAINS.sqlite"
     DB_DIRECTORY = "/results/plugins/scratch/"
     BACKUP_NAME = "STRAINS"
