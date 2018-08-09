@@ -12,9 +12,9 @@ of organisms.
 * Calculates coverage
 * Determines the genome size of the organism
     * Determines if genome size is expected value
-* Identifies the bacteria based in [NCBI 16S rRNA RefSeq references] (https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA33175)
+* Identifies the bacteria based in [NCBI 16S rRNA RefSeq references](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA33175)
 * Determines MLST type using [PUBMLST](https://pubmlst.org/])
-* Identify antibiotic resistant genes present in [NCBI AMR references] (https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA313047)
+* Identify antibiotic resistant genes present in [NCBI AMR references](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA313047)
 * Includes multiple comparisons
     * Full Genome comparison
     * Filter Comparison to remove errors
@@ -69,7 +69,7 @@ __StrainConstructMer__ will process all the sample on a project.  No input or co
 
 Once the samples have been processed the report table will be created.
 
-####report columns
+#### Report columns
 
 | Column position | column Name | column information |
 |-----------------|-------------|--------------------|
