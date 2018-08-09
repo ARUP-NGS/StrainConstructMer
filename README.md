@@ -1,4 +1,4 @@
-# StrainContructMer
+# StrainConstructMer
 Ion torrent plugin to perform strain typing. 
 This plugin process a sample and transform the data so that comparisons can be performed with the __StrainCompareMer__ plugin
 
@@ -12,9 +12,9 @@ of organisms.
 * Calculates coverage
 * Determines the genome size of the organism
     * Determines if genome size is expected value
-* Identifies the bacteria based on NCBI [16S rRNA RefSeq] (PRJNA33175)
+* Identifies the bacteria based on NCBI [16S rRNA RefSeq] (https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA33175)
 * Determines MLST type using [PUBMLST](https://pubmlst.org/])
-* Identify antibiotic resistant genes present (PRJNA313047)
+* Identify antibiotic resistant genes present for [NCBI] (https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA313047)
 * Includes mulitple comparisons
     * Full Genome comparison
     * Filter Comparison to remove errors
