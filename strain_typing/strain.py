@@ -25,7 +25,7 @@ class Strain(object):
 
     """
 
-    jellyfish_app = "/results/plugins/scratch/apps/jellyfish-2.2.7/bin/jellyfish"
+
     KMER_SIZE = 31
 
     # QUALITY CUTOFFS
@@ -38,6 +38,7 @@ class Strain(object):
     def __init__(self, name, strain_instance, already_processed, plugin_directory, metadata=None,
                  startplugin_metadata=None, run_info=None, is_reference=False, basecaller_stats=None):
 
+        self.jellyfish_app = os.path.join(plugin_directory, 'bin', 'jellyfish')
         self.basecaller_stats = basecaller_stats
         self.name = name
         self.strain_instance = strain_instance

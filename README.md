@@ -127,5 +127,8 @@ easier to remove errors from the data set.
     * Genome size \> 1,000,000bp
     * Genome size within 10% of min and max for species or genus (only used for *Acinetobacter*, *Staphylococcus*, and *Enterococcus*)
     
+&copy; 2018, ARUP Laboratories
+
+
 
 ___

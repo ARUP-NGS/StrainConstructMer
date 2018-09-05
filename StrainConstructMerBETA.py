@@ -23,6 +23,9 @@ from django.template.loader import render_to_string
 from django.conf import global_settings
 global_settings.LOGGING_CONFIG = None
 
+"""
+&copy; 2018, ARUP Laboratories
+"""
 
 class StrainConstructMerBETA(IonPlugin):
     """
@@ -30,7 +33,7 @@ class StrainConstructMerBETA(IonPlugin):
     most of the strain setup should passed to the strain typing module located in this project
     This entry point handles workflow and builds the UI.
     """
-    version = "1.0.0.1"  # MAJOR.MINOR.REVISION.BUILD
+    version = "1.0.0.2"  # MAJOR.MINOR.REVISION.BUILD
     DB_NAME = "STRAINS.sqlite"
     DB_DIRECTORY = "/results/plugins/scratch/"
     BACKUP_NAME = "STRAINS"
