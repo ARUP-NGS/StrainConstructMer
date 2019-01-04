@@ -5,6 +5,7 @@ from strain_typing.utility_functions import timeit
 import csv
 from collections import defaultdict
 import numpy
+import gzip
 import sys
 
 
@@ -84,7 +85,7 @@ class SpeciesClassifier(object):
     rel_reference_path = "strain_typing/resources/references_ssu/" \
                          "16S_bacteria_PRJNA33175.fa"
     rel_processed_path = "strain_typing/resources/references_ssu/" \
-                         "16S_bacteria_PRJNA33175_processed.txt"
+                         "16S_bacteria_PRJNA33175_processed.txt.gz"
     rel_genome_path = "strain_typing/resources/references_ssu/prokaryotes.csv"
 
     def __init__(self, plugin_path, load_test_subset=False):
@@ -132,15 +133,16 @@ class SpeciesClassifier(object):
         references = []
         if os.path.isfile(self.processed_path):
             sys.stderr.write("INFO: Found processed references, loading.\n")
-            with open(self.processed_path) as rf:
+            with gzip.open(self.processed_path, "rb") as rf:
                 for line in rf:
-                    accession, genus, species, sequence, kmer_list = line.split("\t")
+                    line = line.decode()
+                    accession, genus, species, kmer_list = line.split("\t")
                     kmer_list = kmer_list.split(";")
                     r = ClassifierReference.__new__(ClassifierReference)
                     r.accession = accession
                     r.genus = genus
                     r.species = species
-                    r.sequence = sequence
+                    # r.sequence = sequence
                     r.kmer_list = kmer_list
                     references.append(r)
             return references
@@ -245,7 +247,7 @@ class ClassifierReference(object):
 
     def __repr__(self):
         s = "{0}\t{1}\t{2}\t".format(self.accession, self.genus, self.species)
-        s += "{0}\t".format(self.sequence)
+        # s += "{0}\t".format(self.sequence)
         s += "{0}".format(";".join(self.kmer_list))
         return s
 
@@ -255,7 +257,7 @@ class ClassifierReference(object):
 
 if __name__ == '__main__':
     sc = SpeciesClassifier("/Users/331-SimmonkLPTP/git_repos_thermo/StrainConstructMer/")
-    with open("/Users/331-SimmonkLPTP/git_repos_thermo/StrainConstructMer/strain_typing/"
+    with gzip.open("/Users/331-SimmonkLPTP/git_repos_thermo/StrainConstructMer/strain_typing/"
               "resources/references_ssu/16S_bacteria_PRJNA33175_processed.txt", "w") as wf:
         for s in sc.references:
             wf.write("{0}\n".format(str(s)))
