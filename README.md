@@ -1,6 +1,6 @@
 <hr>
 
-![drawing](docs/ARUP_horz_2c_pos.jpg =250x)
+![drawing](docs/ARUP_horz_2c_pos.jpg)
 
 # StrainTypeMer
 __StrainTypeMer__ is a program created to compare genomes of two or more samples. The primary use case is for 
