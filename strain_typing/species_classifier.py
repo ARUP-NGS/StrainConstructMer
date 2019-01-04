@@ -1,10 +1,11 @@
 import os
 from Bio import SeqIO
-from .utility_functions import get_kmers
-from .utility_functions import timeit
+from strain_typing.utility_functions import get_kmers
+from strain_typing.utility_functions import timeit
 import csv
 from collections import defaultdict
 import numpy
+import sys
 
 
 class ClassifierHit(object):
@@ -82,10 +83,13 @@ class ClassifierHit(object):
 class SpeciesClassifier(object):
     rel_reference_path = "strain_typing/resources/references_ssu/" \
                          "16S_bacteria_PRJNA33175.fa"
-    rel_genome_path = "strain_typing/resources/references_ssu/genomes_sizes.csv"
+    rel_processed_path = "strain_typing/resources/references_ssu/" \
+                         "16S_bacteria_PRJNA33175_processed.txt"
+    rel_genome_path = "strain_typing/resources/references_ssu/prokaryotes.csv"
 
     def __init__(self, plugin_path, load_test_subset=False):
         self.reference_path = self.__set_reference_path(plugin_path)
+        self.processed_path = self.__set_processed_path(plugin_path)
         self.genome_path = self.__set_genome_path(plugin_path)
         self.references = self.__load_references(load_test_subset)
         self.genus_genome_sizes, self.species_genome_sizes = self.__load_genome_sizes()
@@ -105,7 +109,6 @@ class SpeciesClassifier(object):
             size = int(float(line[7]) * 1000000)
             genome_sizes_species[species].append(size)
             genome_sizes_genus[genus].append(size)
-
         return genome_sizes_genus, genome_sizes_species
 
     def __set_genome_path(self, plugin_path):
@@ -120,14 +123,36 @@ class SpeciesClassifier(object):
             raise ValueError("the is_reference file could not be found [{0}]".format(reference_path))
         return reference_path
 
+    def __set_processed_path(self, plugin_path):
+        reference_path = os.path.join(plugin_path, self.rel_processed_path)
+        return reference_path
+
     @timeit
     def __load_references(self, load_test_subset=False):
         references = []
+        if os.path.isfile(self.processed_path):
+            sys.stderr.write("INFO: Found processed references, loading.\n")
+            with open(self.processed_path) as rf:
+                for line in rf:
+                    accession, genus, species, sequence, kmer_list = line.split("\t")
+                    kmer_list = kmer_list.split(";")
+                    r = ClassifierReference.__new__(ClassifierReference)
+                    r.accession = accession
+                    r.genus = genus
+                    r.species = species
+                    r.sequence = sequence
+                    r.kmer_list = kmer_list
+                    references.append(r)
+            return references
+        sys.stderr.write("INFO: No processed reference file loading references and creating processed reference set.\n")
         for reference in SeqIO.parse(self.reference_path, "fasta"):
             r = ClassifierReference(reference)
             references.append(r)
             if load_test_subset and len(references) > 4:  # this is just in place to load a subset for testing
                 break
+        with open(self.processed_path, "w") as wf:
+            for s in references:
+                wf.write("{0}\n".format(str(s)))
         return references
 
     @timeit
@@ -219,10 +244,18 @@ class ClassifierReference(object):
         return accession, genus, species
 
     def __repr__(self):
-        s = "ACC:\t{0}\tGENUS: {1}\tSPECIES: {2}\n".format(self.accession, self.genus, self.species)
-        s += "SEQ:\t{0}\n".format(self.sequence)
-        s += "KMERS:\t{0}".format(",".join(self.kmer_list))
+        s = "{0}\t{1}\t{2}\t".format(self.accession, self.genus, self.species)
+        s += "{0}\t".format(self.sequence)
+        s += "{0}".format(";".join(self.kmer_list))
         return s
 
     def __len__(self):
         return len(self.kmer_list)
+
+
+if __name__ == '__main__':
+    sc = SpeciesClassifier("/Users/331-SimmonkLPTP/git_repos_thermo/StrainConstructMer/")
+    with open("/Users/331-SimmonkLPTP/git_repos_thermo/StrainConstructMer/strain_typing/"
+              "resources/references_ssu/16S_bacteria_PRJNA33175_processed.txt", "w") as wf:
+        for s in sc.references:
+            wf.write("{0}\n".format(str(s)))
