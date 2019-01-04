@@ -12,7 +12,6 @@ from .utility_functions import reverse_complement
 from .utility_functions import timeit
 import datetime
 import simplejson
-from Bio import SeqIO
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.conf import global_settings
@@ -85,6 +84,7 @@ class Strain(object):
         self.green_dot = self.plugin_dir.replace("/results", "") + "/pluginMedia/images/success_checkmark.png"
         self.yellow_dot = self.plugin_dir.replace("/results", "") + "/pluginMedia/images/warning.png"
         self.red_dot = self.plugin_dir.replace("/results", "") + "/pluginMedia/images/failed.png"
+        self.drug_icon = self.plugin_dir.replace("/results", "") + "/pluginMedia/images/drug.png"
 
         # basecaller info
         self.bc_max_read_length_q17 = None
@@ -104,6 +104,7 @@ class Strain(object):
         self.kmer_histo = None
         self.antibiotic_path = None
         self.strain_json_path = None
+        self.resistant_html = None
 
         # run_info object
         self.run_info = run_info
@@ -347,6 +348,10 @@ class Strain(object):
             results_dir = os.path.basename(self.start_plugin_metadata['runinfo']['plugin']['results_dir'])
             self.classifier_html = os.path.join(server, 'report', report_number, 'metal', 'plugin_out', results_dir,
                                                 self.name, self.name + "_classifier_hits.html")
+
+            self.resistant_html = os.path.join(server, 'report', report_number, 'metal', 'plugin_out', results_dir,
+                                               self.name, self.name + "_resistant_table.html")
+
         render_context = {
             "autorefresh": False,
             "run_name": "test_table",
@@ -522,6 +527,34 @@ class Strain(object):
         _d.pop("plan")
         return _d
 
+    @timeit
+    def create_resistant_table(self):
+
+        if self.antibiotic_genes is None:
+            return False
+        render_context = {
+            "autorefresh": False,
+            "run_name": "",
+            "run_user_name": "",
+            "plugin_user_name": "",
+            "date_run": "",
+            "pk": "",
+            "barcode": self.barcode_name,
+            "strain_id": self.sample_id,
+            "plugin_name": os.path.basename(self.plugin_dir),
+            "sample": self.sample,
+            "resistant_genes": self.antibiotic_genes,
+            # "help_dict": help_dictionary,
+        }
+
+        resistant_html = os.path.join(self.strain_directory, "{0}_resistant_table.html".format(self.barcode_name))
+        with open(resistant_html, "w") as html_fp:
+            html_fp.write(render_to_string('resistant_table.html', render_context))
+        self.resistant_html = resistant_html
+        return
+
+
+
     def write_results(self):
         """
         writes a json formatted file to the strain_directory.
@@ -595,6 +628,7 @@ class Strain(object):
         write_dictionary["q20_cutoff"] = self.PCT_QC20_BASES_CUTOFF
         write_dictionary["passed_genome_range"] = self.__passed_genome_range()
         write_dictionary["min_known_genome_size"] = self.get_genome_min_genome_size()
+        write_dictionary["max_known_genome_size"] = self.get_genome_max_genome_size()
         write_dictionary["max_known_genome_size"] = self.get_genome_max_genome_size()
         write_dictionary["chef_info"] = self.chef_info
 
@@ -685,6 +719,15 @@ class Strain(object):
         results_dictionary["genome_size_icon"], results_dictionary["genome_size_help"] = self.get_genome_size_icon()
         results_dictionary["mongo_icon"], results_dictionary["mongo_help"] = self.get_mongo_icon()
         results_dictionary["backup_icon"], results_dictionary["backup_help"] = self.get_backup_icon()
+        results_dictionary["drug_icon"] = self.drug_icon
+
+        server = self.start_plugin_metadata['runinfo']['net_location']
+        report_number = str(self.start_plugin_metadata['runinfo']['pk'])
+        results_dir = os.path.basename(self.start_plugin_metadata['runinfo']['plugin']['results_dir'])
+
+
+        results_dictionary["resistant_html"] = os.path.join(server, 'report', report_number, 'metal', 'plugin_out',
+                                                            results_dir, self.name, self.name + "_resistant_table.html")
 
         results_dictionary["qc_base_format"] = "Green" if self.__passed_q20() else "Red"
         results_dictionary["sample"] = self.sample
