@@ -35,10 +35,10 @@ class AMRRecord(object):
             "gene": self.gene,
             "description": self.description,
             "accession": self.refseq_nucl_accession,
-            "kmer_identity": kmer_identity,
+            "kmer_identity": round(kmer_identity * 100.0, 1),
             "reporting_cutoff": kmer_cutoff,
             "coverage": coverage,
-            "coverage_change:": coverage_change
+            "coverage_change": coverage_change
         }
 
     @property
@@ -153,4 +153,4 @@ class AMRDatabase:
     @staticmethod
     def calculate_coverage_difference(strain_coverage, gene_coverage):
         # return float("{0:.1f}".format(float(numpy.mean(numpy.nonzero(gene_coverage))) / strain_coverage))
-        return float("{0:.1f}".format(float(numpy.median(gene_coverage)) / strain_coverage))
+        return float("{0:.1f}".format(float(numpy.median([i for i in gene_coverage if i > 0])) / strain_coverage))

@@ -27,18 +27,19 @@ global_settings.LOGGING_CONFIG = None
 &copy; 2018, ARUP Laboratories
 """
 
-class StrainConstructMerBETA(IonPlugin):
+
+class StrainConstructMer(IonPlugin):
     """
     This plugin performs the analysis of a sample to construct a strain suitable for comparison
     most of the strain setup should passed to the strain typing module located in this project
     This entry point handles workflow and builds the UI.
     """
-    version = "1.0.0.2"  # MAJOR.MINOR.REVISION.BUILD
+    version = "1.0.1.0"  # MAJOR.MINOR.REVISION.BUILD
     DB_NAME = "STRAINS.sqlite"
     DB_DIRECTORY = "/results/plugins/scratch/"
     BACKUP_NAME = "STRAINS"
     BACKUP_DIRECTORY = None
-    ENVIROMENT = "DEV"
+    ENVIRONMENT = "DEV"
 
     runtypes = [RunType.FULLCHIP, RunType.THUMB, RunType.COMPOSITE]
     runlevels = [RunLevel.DEFAULT]
@@ -54,23 +55,34 @@ class StrainConstructMerBETA(IonPlugin):
         with open('barcodes.json', 'r') as barcodes_handle:
             return json.load(barcodes_handle)
 
-    def check_run_setup(self):
-        """
-        This function calls checks in ' certain parameters of the run to make sure they dont deviate
+    # def update_progress(self, text):
+    #     with open(self.startplugin['runinfo']['results_dir'] + '/progress_block.html', 'w') as html_handle:
+    #         html_handle.write('<html><body>')
+    #         html_handle.write("{0}".format(text))
+    #         html_handle.write('</body></html>')
 
-        :return:
-        """
-        check_nucleotide_type(self.barcodes_json)
+    def update_progress(self, text, level='info'):
+        alert_hl = "alert-info"
+        if level == "warn":
+            alert_hl = "alert-danger"
 
-    def update_progress(self, text):
+        if text == "":
+            with open(self.startplugin['runinfo']['results_dir'] + '/progress_block.html', 'w') as html_handle:
+                html_handle.write("")
+                return
+
         with open(self.startplugin['runinfo']['results_dir'] + '/progress_block.html', 'w') as html_handle:
-            html_handle.write('<html><body>')
-            html_handle.write("{0}".format(text))
+            html_handle.write('<html><head><link rel="stylesheet" media="all" '
+                              'href="/site_media/resources/bootstrap/css/bootstrap.min.css"/></head><body>')
+            html_handle.write('<div class="alert {0}" role="alert">'.format(alert_hl))
+            html_handle.write("<strong>{0}</strong>".format(text))
+            html_handle.write('</div>')
             html_handle.write('</body></html>')
 
-    def backup_strain(self, strain):
+    @staticmethod
+    def backup_strain(strain):
         """
-        moves the plugin output directory to qumulo
+        moves the plugin output directory backup directory
         :return: True if copied, False otherwise
         """
         if os.path.isdir(strain.backup_directory):
@@ -123,6 +135,15 @@ class StrainConstructMerBETA(IonPlugin):
 
     def validate_strains_for_analysis(self, plugin_directory, run_info=None, number_of_strains_to_process=None,
                                       basecaller_stats=None):
+        """
+        performs sample checks and creates list of strains to analyze
+
+        :param plugin_directory:
+        :param run_info:
+        :param number_of_strains_to_process:
+        :param basecaller_stats:
+        :return:
+        """
         sys.stderr.write("{0}\n".format("~" * 80))
         sys.stderr.write("INFO: RUNNING SAMPLE CHECKS\n")
         sys.stderr.write("{0}\n".format("~" * 80))
@@ -143,10 +164,8 @@ class StrainConstructMerBETA(IonPlugin):
                                                       metadata["bam_file"].strip("_rawlib.basecaller.bam"))
                 metadata['sample_id'] = "BARCODE_CONTAMINATE"
 
-            if is_strain_typing is False:  # for Thermo deploment turn off check
+            if is_strain_typing is False:  # for thermofisher deployment turn off check
                 pass
-                # continue
-
             try:
                 sam_id = self.startplugin_json['plan']["barcodedSamples"][metadata['sample']]["barcodeSampleInfo"][
                     barcode]['externalId'].replace(" ", "_")
@@ -177,14 +196,13 @@ class StrainConstructMerBETA(IonPlugin):
                 s.software_version = self.version
 
                 strain_typing_samples.append(s)
-                if number_of_strains_to_process is not None and len(strain_typing_samples) >= \
-                        number_of_strains_to_process:
+                if number_of_strains_to_process is not None and len(strain_typing_samples) >= number_of_strains_to_process:  # subsampling testing
                     break
 
             else:
                 sys.stderr.write("WARNING: Could not find {0}; skipping\n".format(metadata['bam_filepath']))
 
-        self.update_progress("{0} strains identified for strain typing".format(len(strain_typing_samples)))
+        self.update_progress("{0} samples identified for Strain Typing".format(len(strain_typing_samples)))
 
         sys.stderr.write("INFO: SAMPLE CHECKS DONE\n")
         sys.stderr.write("{0}\n".format("~" * 80))
@@ -216,7 +234,7 @@ class StrainConstructMerBETA(IonPlugin):
                 sys.stderr.write("[expected_result: {0}||actual result: {1}]\n".format(expected_result, actual_result))
 
         if False in run_info_results:
-            self.update_progress(failed_msg)
+            self.update_progress(failed_msg, level='warn')
             sys.stderr.write("ERROR: FINISHED RUN INFO TESTS .... ERROR\n")
             sys.stderr.write("{0}\n".format("~" * 80))
             return False
@@ -235,7 +253,7 @@ class StrainConstructMerBETA(IonPlugin):
         if not os.path.exists(database_file):
             error_text = "INFO: Could not find the database_file at [{0}]\n".format(database_file)
             sys.stderr.write(error_text)
-            self.update_progress(error_text)
+            self.update_progress(error_text, level='warn')
 
         if not os.path.isfile(database_file):
             sys.stderr.write("WARN: THE STRAIN DATABASE DOES NOT EXISTS\n")
@@ -264,7 +282,7 @@ class StrainConstructMerBETA(IonPlugin):
                     sys.stderr.write("ERROR: the database directory is not a valid "
                                      "directory [{0}]\n".format(self.DB_DIRECTORY))
                     self.update_progress("ERROR: the database directory is not a valid "
-                                         "directory [{0}]\n".format(self.DB_DIRECTORY))
+                                         "directory [{0}]\n".format(self.DB_DIRECTORY), level='warn')
                     return False
 
             # BACKUP LOCATION
@@ -281,14 +299,14 @@ class StrainConstructMerBETA(IonPlugin):
                         sys.stderr.write("ERROR: the backup directory is not a valid "
                                          "directory [{0}]\n".format(self.BACKUP_DIRECTORY))
                         self.update_progress("ERROR: the backup directory is not a valid "
-                                             "directory [{0}]\n".format(self.BACKUP_DIRECTORY))
+                                             "directory [{0}]\n".format(self.BACKUP_DIRECTORY), level='warn')
                         return False
 
                     if not os.access(self.BACKUP_DIRECTORY, os.W_OK):
                         sys.stderr.write("ERROR: cannot write to the backup directory "
                                          "[{0}]\n".format(self.BACKUP_DIRECTORY))
                         self.update_progress("ERROR: cannot write to the backup directory"
-                                             " [{0}]\n".format(self.BACKUP_DIRECTORY))
+                                             " [{0}]\n".format(self.BACKUP_DIRECTORY), level='warn')
                         return False
 
                     if not os.path.isdir(os.path.join(self.BACKUP_DIRECTORY, self.BACKUP_NAME)):
@@ -303,7 +321,7 @@ class StrainConstructMerBETA(IonPlugin):
         :return:
         """
         # important directories to have handy
-        results_dir = str(self.startplugin_json['runinfo']['results_dir'])          # plugin results_directory
+        results_dir = str(self.startplugin_json['runinfo']['results_dir'])  # plugin results_directory
         run_dir = str(self.startplugin_json['runinfo']['report_root_dir'])
         plugin_dir = str(self.startplugin_json['runinfo']['plugin_dir'])
 
@@ -321,9 +339,6 @@ class StrainConstructMerBETA(IonPlugin):
         self.check_sql_directory()
 
         run_info = RunInfo(run_dir)
-        # check the run setup for problems
-        # if self.run_info_checks(run_info) is False:
-        #    sys.exit(1)
 
         # SET UP THE SAMPLES TO PROCESS
         strain_typing_samples = self.validate_strains_for_analysis(plugin_dir, run_info=run_info,
@@ -471,7 +486,7 @@ class StrainConstructMerBETA(IonPlugin):
         strain.write_hits()
         strain.write_mlst()
         strain.write_hits_to_html()
-
+        strain.create_resistant_table()
         return strain
 
     # THIS IS THE METHOD THAT DOES MULTIPROCESSING
