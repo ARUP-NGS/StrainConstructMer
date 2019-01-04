@@ -28,7 +28,7 @@ global_settings.LOGGING_CONFIG = None
 """
 
 
-class StrainConstructMer(IonPlugin):
+class StrainConstructMerBETA(IonPlugin):
     """
     This plugin performs the analysis of a sample to construct a strain suitable for comparison
     most of the strain setup should passed to the strain typing module located in this project
@@ -192,7 +192,7 @@ class StrainConstructMer(IonPlugin):
                 # create
                 s.strain_directory = os.path.join(str(self.startplugin_json['runinfo']['results_dir']), barcode)
                 s.add_basecalling_metadata(str(self.startplugin_json['runinfo']['basecaller_dir']))
-                s.development_environment = self.ENVIROMENT
+                s.development_environment = self.ENVIRONMENT
                 s.software_version = self.version
 
                 strain_typing_samples.append(s)
@@ -457,6 +457,7 @@ class StrainConstructMer(IonPlugin):
         render_context = {
             "autorefresh": False,
             "run_name": "test_table",
+            "plugin_name": os.path.basename(plugin_dir),
             "run_user_name": run_username,
             "plugin_user_name": plugin_username,
             "strain_page_link": os.path.join(self.startplugin_json['runinfo']['net_location'], 'report',
