@@ -1,6 +1,6 @@
 <hr>
 
-![drawing](docs/ARUP_horz_2c_pos.jpg)
+<img src="docs/ARUP_horz_2c_pos.jpg" width="50%">
 
 # StrainTypeMer
 __StrainTypeMer__ is a program created to compare genomes of two or more samples. The primary use case is for 
@@ -8,7 +8,7 @@ epidemiological analysis. The program analyzes NGS data created by Whole Genome 
 This version of __StrainTypeMer__ works as two Ion Torrent Plugins. 
 
 # StrainConstructMer
-__StrainCon
+__StrainConStrainConstructMer__
 This plugin processes a sample and transform the data so that comparisons can be performed with the __StrainCompareMer__ plugin.
 
 ___
