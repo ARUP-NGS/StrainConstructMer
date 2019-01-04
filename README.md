@@ -1,4 +1,4 @@
----
+
 
 <img src="docs/ARUP_horz_2c_pos.jpg" width="50%">
 
@@ -116,9 +116,7 @@ ___
 Clicking the drug icon for a sample opens a new tab showing the antibiotic resistance genes found in the strain based on
 NCBI's AMR reference set [NCBI AMR references](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA313047)
 
-#### Screen shot of Antibiotic Resistance Genes
 
-![screenshot](docs/antibiotic_gene_results.png)
 
 | Column position | column Name | column information |
 |-----------------|-------------|--------------------|
@@ -130,7 +128,9 @@ NCBI's AMR reference set [NCBI AMR references](https://www.ncbi.nlm.nih.gov/biop
 | 6               | Coverage Change from Genome  | The coverage change observed for the gene. This is an indication of the number of copies of the gene |
 | 7               | Originating Species          | The species of origin for the AMR reference |
 
+#### Screen shot of Antibiotic Resistance Genes
 
+![screenshot](docs/antibiotic_gene_results.png)
 
 ## Limitations and notes
 
