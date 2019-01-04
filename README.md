@@ -17,7 +17,7 @@ organisms.
 __StrainConstructMer__ is the first plugin in the StrainTypeMer analysis. This plugin processes a sample and 
 transform the data so that comparisons can be performed with the __StrainCompareMer__ plugin.
 
-### Features
+## Features
 * Calculates coverage
 * Determines the genome size of the organism
     * Determines if genome size is expected value
@@ -53,7 +53,7 @@ ___
 3. Install the zip file through the Torrent Server Plugin interface
 
 ___
-## Guide
+# Guide
 
 __StrainConstructMer__ will process all the sample on a project.  No input or configuration is required.
 
@@ -82,7 +82,9 @@ corresponding to a sample on the run.
 
 #### Screen Shot of Report
 
+<kbd>
 <img src="docs/summary_screenshot.png" border="1">
+</kbd>
 
 ---
 ### 16S Classifier Table
@@ -106,7 +108,9 @@ reference set
 
 ### Screen Shot of Classifier Hits Table
 
+<kbd>
 <img src="docs/classifier_results.png" border="1">
+</kbd>
 
 ___
 
@@ -128,13 +132,15 @@ NCBI's AMR reference set [NCBI AMR references](https://www.ncbi.nlm.nih.gov/biop
 
 ### Screen Shot of Antibiotic Resistance Genes
 
+<kbd>
 <img src="docs/antibiotic_gene_results.png" border="1">
+</kbd>
 
 ---
 
-## Limitations and Notes
+# Limitations and Notes
 
-#### Sample Database and Backups
+## Sample Database and Backups
 `StrainCompareMer` relies on samples to be run through `StrainConstructMer`. `StrainConstructMer` therefore writes information
 to an SQLite database which by default is placed into `/results/plugins/scratch/`.  The database only holds sparse information
 about the sample. If the plugin results for a sample are deleted then `StrainComparMer` may fail. This can be easily be rectify
@@ -151,7 +157,7 @@ If you desire to have multiple instruments accessing to the same `StrainConstruc
 network drive and specifying the database and backup location point to this network drive.
 ___
 
-#### Comparing Strains
+## Comparing Strains
 * We have found that at least 25X coverage is need to preform a high quality comparison. Above this coverage it is
 easier to remove errors from the data set.
 
@@ -168,11 +174,10 @@ easier to remove errors from the data set.
     
 ---
 
+
 _When using this resource in publications, please cite the following:
 Keith Simmon PhD, ARUP Laboratories at the University of Utah, ARUP StrainTypeMer software_
 
 &copy; 2018, ARUP Laboratories
-
-
 
 ___
