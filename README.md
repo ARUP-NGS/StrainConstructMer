@@ -1,5 +1,4 @@
 
-
 <img src="docs/ARUP_horz_2c_pos.jpg" width="50%">
 
 ---
@@ -33,7 +32,7 @@ file that indicates the strains to be processed.  THe strains must exist in the 
 locate the files associated with the strain.  The database location set on the global configuration page must be 
 identical to the location set on __StrainConstructMer__ (default location `/results/plugins/scratch/`). 
 
-### Features
+## Features
 * Includes multiple comparisons
     * Full Genome comparison
     * Full Genome comparison with select references
@@ -54,18 +53,18 @@ ___
 3. Install the zip file through the Torrent Server Plugin interface
 
 ___
-## Usage
+## Guide
 
 __StrainConstructMer__ will process all the sample on a project.  No input or configuration is required.
 
 
-#### Summary report
+### Summary Report
 
 The summary report appears after the plugin has finished processing samples.  The report contains a table with each row
-cooresponding to a sample on the run.  
+corresponding to a sample on the run.  
 
 
-| Column position | column Name | column information |
+| Column Position | Column Name | Column Information |
 |-----------------|-------------|--------------------|
 | 1               | Status      | <ul><li>Icon indicates if the sample __passed QC__ and is suitable for comparison</li><li>Clicking the icon brings up data files including antibiotic genes detected</li></ul> |
 | 2               | Barcode     | Barcode ID of sample  |
@@ -81,12 +80,12 @@ cooresponding to a sample on the run.
 | 12              | Kmer Histogram      | The histogram of kmer frequency and kmer count |
 
 
-#### Screen shot of Report
+#### Screen Shot of Report
 
-![screenshot](docs/summary_screenshot.png)
+<img src="docs/summary_screenshot.png" border="1">
 
-___
-#### 16S Classifier table
+---
+### 16S Classifier Table
 
 Clicking the top hit in the classifier table opens a new tab showing the complete list of classifier hits from NCBI's 
 reference set
@@ -105,17 +104,16 @@ reference set
 | 10              | Max Genome Size Genus           | The Max genome size of the reference genus based on completed NCBI genomes |
 
 
-#### Screen shot of Classifier Hits table
+### Screen Shot of Classifier Hits Table
 
-![screenshot](docs/classifier_results.png)
+<img src="docs/classifier_results.png" border="1">
 
 ___
 
-#### Antibiotic Resistance Genes
+### Antibiotic Resistance Genes
 
 Clicking the drug icon for a sample opens a new tab showing the antibiotic resistance genes found in the strain based on
 NCBI's AMR reference set [NCBI AMR references](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA313047)
-
 
 
 | Column position | column Name | column information |
@@ -128,13 +126,15 @@ NCBI's AMR reference set [NCBI AMR references](https://www.ncbi.nlm.nih.gov/biop
 | 6               | Coverage Change from Genome  | The coverage change observed for the gene. This is an indication of the number of copies of the gene |
 | 7               | Originating Species          | The species of origin for the AMR reference |
 
-#### Screen shot of Antibiotic Resistance Genes
+### Screen Shot of Antibiotic Resistance Genes
 
-![screenshot](docs/antibiotic_gene_results.png)
+<img src="docs/antibiotic_gene_results.png" border="1">
 
-## Limitations and notes
+---
 
-#### Sample database and backups
+## Limitations and Notes
+
+#### Sample Database and Backups
 `StrainCompareMer` relies on samples to be run through `StrainConstructMer`. `StrainConstructMer` therefore writes information
 to an SQLite database which by default is placed into `/results/plugins/scratch/`.  The database only holds sparse information
 about the sample. If the plugin results for a sample are deleted then `StrainComparMer` may fail. This can be easily be rectify
