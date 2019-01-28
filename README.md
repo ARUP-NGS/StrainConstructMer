@@ -4,18 +4,23 @@
 ---
 
 # ARUP StrainTypeMer
-__ARUP StrainTypeMer__ is a rapid program that compares the nucleotide content or more samples. The primary use case is to
-replace for Pulsed Field Gel Electrophoresis (PFGE) for epidemiological analysis. The program analyzes NGS data 
-created by a Whole Genome Fragmentation Protocol. This version of __StrainTypeMer__ works as two Ion Torrent Plugins 
-__StrainConstructMer__ and __StrainCompareMer__. While most epidemiological NGS methods require reference alignment 
-__ARUP StrainTypeMer__ is designed to run reference free. This creates a universal analysis method to compared strains 
-unhindered by the amount of identity a sample has with the reference sequence or the availability of a suitable reference. 
-Because __ARUP StrainTypeMer__ is reference-free it creates a universal strain comparison method that will work across 
-many species and genera.  Analysis can be completed in under 30 minutes for 5-20 samples.
+__ARUP StrainTypeMer__ is a rapid program that compares the nucleotide content of one or more samples/strains. 
+The primary use case is epidemiological analysis.  This tool can replace Pulsed Field Gel Electrophoresis (PFGE). 
+Results are presented and interpreted in a manner similar to PFGE. Samples/strains are grouped as _Clonal_, _Closely_, 
+_Possibly_ and _Not_ Related.
 
-# StrainConstructMer
-__StrainConstructMer__ is the first plugin in the StrainTypeMer analysis. This plugin processes a sample and 
-transform the data so that comparisons can be performed with the __StrainCompareMer__ plugin.
+
+The program analyzes NGS data created by a Whole Genome Fragmentation Protocol. This version of __ARUP StrainTypeMer__ 
+works as two Ion Torrent Plugins __ARUP StrainConstructMer__ and __ARUP StrainCompareMer__. While most epidemiological 
+NGS methods require reference alignment __ARUP StrainTypeMer__ is designed to run reference free. This creates a 
+universal analysis method to compared strains unhindered by the amount of identity a sample has with the reference 
+sequence or the availability of a suitable reference. Because __ARUP StrainTypeMer__ is reference-free it creates a 
+universal strain comparison method that will work across many species and genera.  Analysis can be completed in under 
+30 minutes for 5-20 samples.
+
+# ARUP StrainConstructMer
+__ARUP StrainConstructMer__ is the first plugin in the StrainTypeMer analysis. This plugin processes a sample and 
+transform the data so that comparisons can be performed with the __ARUP StrainCompareMer__ plugin. 
 
 ## Features
 * Calculates coverage
@@ -27,72 +32,16 @@ transform the data so that comparisons can be performed with the __StrainCompare
 * Performs Quality checks to determine is sample can be compared in __StrainCompareMer__
 
 # Guide
-
-__StrainConstructMer__ will process all the sample on a project.  No input or configuration is required.
-
-
-# StrainCompareMer
-__StrainCompareMerMer__ is the second plugin in the StrainTypeMer analysis. This plugin processes requires a CSV input 
-file that indicates the strains to be processed.  THe strains must exist in the database and the plugin must be able to 
-locate the files associated with the strain.  The database location set on the global configuration page must be 
-identical to the location set on __StrainConstructMer__ (default location `/results/plugins/scratch/`). 
-
-## Features
-* Includes multiple comparisons
-    * Full Genome comparison
-    * Full Genome comparison with select references
-    * Core genome comparison for organism in table below
-    * Non-core comparison for organism in table below
-    * Interpretation based on cutoffs:
-        * Indistinguishable \>99.9% Kmer Identity 
-        * Closely Related 98.7-99.9% Kmer Identity 
-        * Possibly Related 95.0-98.7% Kmer Identity 
-        * Unrelated \<95.0% Kmer Identity 
-
-# Guide
-
-
-#### Core Genomes
-
-Core genomes were constructed using completed RefSeq genomes from NCBI. A maximum of 25 genomes were used if available.
-By default we use a 80% threshold that requires a kmer needs be observed in 80% of genomes to be considered a 'core' kmer.
-This is modified for some species in order to target a core kmer size near 40%-70% of the overall genome size.
-
-| Organism                     | Average Genome Size   | Genomes Analyzed | Core Kmer Size (Pct of Genome Size) | Percent Cutoff   |
-|:-----------------------------|:---------------------:|:----------------:|:-----------------------------------:|:----------------:|
-|_Acinetobacter baumannii_     | 3,945,908             | 25               | 2,040,177 (52%)                     | 80               |
-|_Enterococcus faecalis_       | 2,909,703             | 20               | 1,812,881 (62%)                     | 80               |
-|_Enterococcus faecium_        | 2,827,968             | 25               | 1,833,417 (65%)                     | 95               |
-|_Escherichia coli_            | 4,969,315             | 25               | 1,914,103 (39%)                     | 80               |
-|_Klebsiella pneumoniae_       | 5,315,713             | 25               | 3,825,265 (71%)                     | 90               |
-|_Pseudomonas aeruginosa_      | 6,581,730             | 25               | 4,416,660 (67%)                     | 80               |
-|_Serratia marcescens_         | 5,234,322             | 25               | 1,910,225 (36%)                     | 60               |
-|_Staphylococcus aureus_       | 2,852,092             | 25               | 1,726,487 (61%)                     | 80               |
-|_Staphylococcus epidermidis_  | 2,544,188             | 15               | 1,665,072 (65%)                     | 80               |
-|_Stenotrophomonas maltophilia_| 4,726,726             | 20               | 1,240,438 (26%)                     | 50               |
-
-
-<em> Note: We constructed the core kmer sets using utility script `create_core_reference_set.py`. However users may
-construct core reference set as they see fit.  The file must be placed into 
-`/results/plugins/StrainCompareMer/strain_comparison/resources/core_reference_sets` and must be prefixed with a 
-organism name. </em>
-
-___
-
-## Installing Plugins
-
-1. Click releases on the github page.
-2. Download the `Source Code (zip)`
-3. Install the zip file through the Torrent Server Plugin interface
-
-___
+__ARUP StrainConstructMer__ will process all the sample on a project.  No input or configuration is required. Once samples
+are complete a summary report will be created. Samples processed by the plugin are placed into a database that 
+__ARUP StrainCompareMer__ can access for comparisons. The database location is set on the global configuration page. 
+It must be identical to the location set in __ARUP StrainCompareMer__ (default location `/results/plugins/scratch/`)
+[see below for notes regarding the StrainConstructMer database.](##Sample-Database-and-Backups)
 
 
 ### Summary Report
-
 The summary report appears after the plugin has finished processing samples.  The report contains a table with each row
 corresponding to a sample on the run.  
-
 
 | Column Position | Column Name         | Column Information |
 |-----------------|---------------------|--------------------|
@@ -168,6 +117,121 @@ NCBI's AMR reference set [NCBI AMR references](https://www.ncbi.nlm.nih.gov/biop
 
 ---
 
+# StrainCompareMer
+__ARUP StrainCompareMer__ is the second plugin in the __ARUP StrainTypeMer__ analysis. 
+
+## Features
+* Includes multiple comparisons
+    * Full Genome comparison
+        * Similarity matrix showing percent kmer identity shared between each to the samples.
+    * Full Genome comparison with select references
+        * Same as above but includes selected NCBI references.  References selected based on sample ID.  
+    * Core genome comparison for organism in table below
+        * Compares the core kmer subset between samples (most conserved kmers). Comparision is made if all samples are 
+        the same organism and the core reference set is available.      
+    * Non-core comparison for organism in table below
+        * Compares the non-core kmer subset between sample (accessory genome). Comparision is made if all samples are 
+            the same organism and the core reference set is available.
+    * Rescue 
+        * Modified Full genome comparision that only compares kmers in the smallest of the to samples processed.
+        * This is helpful:
+            * To compare a sample with low coverage to a sample with higher coverage
+            * To observe changes caused a large acquisition of DNA
+    * Relationships
+        * Interpretation based on cutoffs:
+            * Indistinguishable \>99.9% Kmer Identity 
+            * Closely Related 98.7-99.9% Kmer Identity 
+            * Possibly Related 95.0-98.7% Kmer Identity 
+            * Unrelated \<95.0% Kmer Identity 
+    * Comparision Table
+        * Table shows details about each comparison
+    * Strain Summary
+        * Similar to the Summary page form __ARUP StrainConstructMer__.  MLST profiles included in output.
+
+# Guide
+The plugin requires a CSV file as input. The CSV file indicates the strains to be processed. The strains must exist in 
+the database and the plugin must be able to locate the files associated with the strain.  The database location is set 
+on the global configuration page. It must be identical to the location set for __ARUP StrainConstructMer__ (default 
+location `/results/plugins/scratch/`). 
+
+#### Core Genomes
+
+Core genomes were constructed using completed RefSeq genomes from NCBI. A maximum of 25 genomes were used if available.
+By default we use a 80% threshold that requires a kmer needs be observed in 80% of genomes to be considered a 'core' kmer.
+This is modified for some species in order to target a core kmer size near 40%-70% of the overall genome size.
+
+| Organism                     | Average Genome Size   | Genomes Analyzed | Core Kmer Size (Pct of Genome Size) | Percent Cutoff   |
+|:-----------------------------|:---------------------:|:----------------:|:-----------------------------------:|:----------------:|
+|_Acinetobacter baumannii_     | 3,945,908             | 25               | 2,040,177 (52%)                     | 80               |
+|_Enterococcus faecalis_       | 2,909,703             | 20               | 1,812,881 (62%)                     | 80               |
+|_Enterococcus faecium_        | 2,827,968             | 25               | 1,833,417 (65%)                     | 95               |
+|_Escherichia coli_            | 4,969,315             | 25               | 1,914,103 (39%)                     | 80               |
+|_Klebsiella pneumoniae_       | 5,315,713             | 25               | 3,825,265 (71%)                     | 90               |
+|_Pseudomonas aeruginosa_      | 6,581,730             | 25               | 4,416,660 (67%)                     | 80               |
+|_Serratia marcescens_         | 5,234,322             | 25               | 1,910,225 (36%)                     | 60               |
+|_Staphylococcus aureus_       | 2,852,092             | 25               | 1,726,487 (61%)                     | 80               |
+|_Staphylococcus epidermidis_  | 2,544,188             | 15               | 1,665,072 (65%)                     | 80               |
+|_Stenotrophomonas maltophilia_| 4,726,726             | 20               | 1,240,438 (26%)                     | 50               |
+
+
+<em> Note: We constructed the core kmer sets using utility script `create_core_reference_set.py`. However users may
+construct core reference set as they see fit.  The file must be placed into 
+`/results/plugins/StrainCompareMer/strain_comparison/resources/core_reference_sets` and must be prefixed with a 
+organism name. </em>
+
+### Screen Shot of Full Genome Matrix
+
+<kbd>
+<img src="docs/full_matrix.png" border="1">
+</kbd>
+
+
+### Screen Shot of Relationship Table
+
+<kbd>
+<img src="docs/relationship_table.png" border="1">
+</kbd>
+
+### Screen Shot of Comparison Table
+
+<kbd>
+<img src="docs/comparison_table.png" border="1">
+</kbd>
+
+### Screen Shot of Reference Matrix
+
+<kbd>
+<img src="docs/reference_matrix.png" border="1">
+</kbd>
+
+### Screen Shot of Core Matrix
+
+<kbd>
+<img src="docs/core_matrix.png" border="1">
+</kbd>
+
+### Screen Shot of Non-Core Matrix
+
+<kbd>
+<img src="docs/non-core_matrix.png" border="1">
+</kbd>
+
+### Screen Shot of Strain Summary
+
+<kbd>
+<img src="docs/strain_summary.png" border="1">
+</kbd>
+
+___
+
+## Installing Plugins
+
+1. Click releases on the github page.
+2. Download the `{name}.zip`
+3. Install the zip file through the Torrent Server Plugin interface
+
+___
+
 # Limitations and Notes
 
 ## Sample Database and Backups
@@ -208,6 +272,6 @@ easier to remove errors from the data set.
 _When using this resource in publications, please cite the following:
 Keith Simmon PhD, ARUP Laboratories at the University of Utah, ARUP StrainTypeMer software_
 
-&copy; 2018, ARUP Laboratories
+&copy; 2019, ARUP Laboratories
 
 ___
