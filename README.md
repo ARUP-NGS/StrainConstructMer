@@ -36,7 +36,7 @@ __ARUP StrainConstructMer__ will process all the sample on a project.  No input 
 are complete a summary report will be created. Samples processed by the plugin are placed into a database that 
 __ARUP StrainCompareMer__ can access for comparisons. The database location is set on the global configuration page. 
 It must be identical to the location set in __ARUP StrainCompareMer__ (default location `/results/plugins/scratch/`)
-[see below for notes regarding the StrainConstructMer database.](##Sample-Database-and-Backups)
+[see below for notes regarding the StrainConstructMer database.](#Limitations-and-Notes)
 
 
 ### Summary Report
@@ -66,10 +66,10 @@ corresponding to a sample on the run.
 </kbd>
 
 ---
-### 16S Classifier Table
+### 16S rRNA Classifier Table
 
-Clicking the top hit in the classifier table opens a new tab showing the complete list of classifier hits from NCBI's 
-reference set
+Clicking the top hit for a sample in the summary table opens a new tab showing the complete list of classifier hits 
+from NCBI's reference set for the selected sample.
 
 | Column position | column Name | column information |
 |-----------------|-------------|--------------------|
@@ -117,7 +117,7 @@ NCBI's AMR reference set [NCBI AMR references](https://www.ncbi.nlm.nih.gov/biop
 
 ---
 
-# StrainCompareMer
+# ARUP StrainCompareMer
 __ARUP StrainCompareMer__ is the second plugin in the __ARUP StrainTypeMer__ analysis. 
 
 ## Features
@@ -213,7 +213,7 @@ organism name. </em>
 ### Screen Shot of Non-Core Matrix
 
 <kbd>
-<img src="docs/non-core_matrix.png" border="1">
+<img src="docs/non-core_martix.png" border="1">
 </kbd>
 
 ### Screen Shot of Strain Summary
@@ -232,7 +232,7 @@ ___
 
 ___
 
-# Limitations and Notes
+#Limitations and Notes
 
 ## Sample Database and Backups
 `StrainCompareMer` relies on samples to be run through `StrainConstructMer`. `StrainConstructMer` therefore writes information
