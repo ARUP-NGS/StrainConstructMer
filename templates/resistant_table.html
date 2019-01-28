@@ -94,9 +94,12 @@
                 }
             ];
 
+            function onFirstDataRendered(params) {
+                    params.api.sizeColumnsToFit();
+                }
+
             // specify the data
             var rowData = {{resistant_genes|safe}};
-
             // let the grid know which columns and what data to use
             var gridOptions = {
                 enableFilter: true,
@@ -113,6 +116,7 @@
                       })
                     })
                 },
+                onFirstDataRendered: onFirstDataRendered,
             };
 
             // setup the grid after the page has finished loading

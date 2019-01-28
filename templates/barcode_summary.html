@@ -65,7 +65,7 @@
             font-size: 1.2vw;
             font-weight: normal;
             border-bottom: 1px solid black;
-            border-left: 1px dashed lightgrey;
+            {#border-left: 1px dashed lightgrey;#}
             padding: 0;
             text-align: center;
             line-height: 100%;
@@ -225,7 +225,7 @@
         <td class="lead"> #= barcode # </td>
         <td class="lead" align="left" > #= (strain_id) ? strain_id : "None" #</td>
         <td class="lead" align="left" > #= (strain_instance) ? strain_instance : "-" #</td>
-        <td class="lead" align="left"> <font style="color: #= coverage_format # ;">#=numberWithCommas(coverage)#</font>&thinsp;X</td>
+        <td class="lead" align="left"> <font style="color: #= coverage_format # ;">#=numberWithCommas(coverage)#</font>X</td>
         <td class="lead" align="left" style="color: #= genome_size_format # ;"> #= numberWithCommas(genome_size) # </td>
         <td class="lead" title= "#= genome_size_help #" > <img   src= #= genome_size_icon # class="flag_size" /> </td>
         <td class="lead" align="left" style="color: #= qc_base_format # ;" > #=pct_q20_bases#%</td>

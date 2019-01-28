@@ -4,14 +4,14 @@
 ---
 
 # ARUP StrainTypeMer
-__ARUP StrainTypeMer__ is a rapid program created to compare genomes of two or more samples. The primary use case is for 
-epidemiological analysis. The program analyzes NGS data created by Whole Genome Fragmentation protocol. This version 
-of __StrainTypeMer__ works as two Ion Torrent Plugins. __ARUP StrainTypeMer__ is an NGS analysis designed to replace 
-Pulsed Field Gel Electrophoresis (PFGE).  While most epidemiological NGS methods require reference alignment
-__ARUP StrainTypeMer__ is designed to run reference free, thus creating a universal analysis method to compared strains
-unhinder by the amount of identity a sample has with the reference sequence. Because __ARUP StrainTypeMer__ is
-reference-free it creates a universal strain comparison method that will work across many species and genera of 
-organisms.  
+__ARUP StrainTypeMer__ is a rapid program that compares the nucleotide content or more samples. The primary use case is to
+replace for Pulsed Field Gel Electrophoresis (PFGE) for epidemiological analysis. The program analyzes NGS data 
+created by a Whole Genome Fragmentation Protocol. This version of __StrainTypeMer__ works as two Ion Torrent Plugins 
+__StrainConstructMer__ and __StrainCompareMer__. While most epidemiological NGS methods require reference alignment 
+__ARUP StrainTypeMer__ is designed to run reference free. This creates a universal analysis method to compared strains 
+unhindered by the amount of identity a sample has with the reference sequence or the availability of a suitable reference. 
+Because __ARUP StrainTypeMer__ is reference-free it creates a universal strain comparison method that will work across 
+many species and genera.  Analysis can be completed in under 30 minutes for 5-20 samples.
 
 # StrainConstructMer
 __StrainConstructMer__ is the first plugin in the StrainTypeMer analysis. This plugin processes a sample and 
@@ -25,6 +25,11 @@ transform the data so that comparisons can be performed with the __StrainCompare
 * Determines MLST type using [PUBMLST](https://pubmlst.org/])
 * Identify antibiotic resistant genes present in [NCBI AMR references](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA313047)
 * Performs Quality checks to determine is sample can be compared in __StrainCompareMer__
+
+# Guide
+
+__StrainConstructMer__ will process all the sample on a project.  No input or configuration is required.
+
 
 # StrainCompareMer
 __StrainCompareMerMer__ is the second plugin in the StrainTypeMer analysis. This plugin processes requires a CSV input 
@@ -44,18 +49,43 @@ identical to the location set on __StrainConstructMer__ (default location `/resu
         * Possibly Related 95.0-98.7% Kmer Identity 
         * Unrelated \<95.0% Kmer Identity 
 
+# Guide
+
+
+#### Core Genomes
+
+Core genomes were constructed using completed RefSeq genomes from NCBI. A maximum of 25 genomes were used if available.
+By default we use a 80% threshold that requires a kmer needs be observed in 80% of genomes to be considered a 'core' kmer.
+This is modified for some species in order to target a core kmer size near 40%-70% of the overall genome size.
+
+| Organism                     | Average Genome Size   | Genomes Analyzed | Core Kmer Size (Pct of Genome Size) | Percent Cutoff   |
+|:-----------------------------|:---------------------:|:----------------:|:-----------------------------------:|:----------------:|
+|_Acinetobacter baumannii_     | 3,945,908             | 25               | 2,040,177 (52%)                     | 80               |
+|_Enterococcus faecalis_       | 2,909,703             | 20               | 1,812,881 (62%)                     | 80               |
+|_Enterococcus faecium_        | 2,827,968             | 25               | 1,833,417 (65%)                     | 95               |
+|_Escherichia coli_            | 4,969,315             | 25               | 1,914,103 (39%)                     | 80               |
+|_Klebsiella pneumoniae_       | 5,315,713             | 25               | 3,825,265 (71%)                     | 90               |
+|_Pseudomonas aeruginosa_      | 6,581,730             | 25               | 4,416,660 (67%)                     | 80               |
+|_Serratia marcescens_         | 5,234,322             | 25               | 1,910,225 (36%)                     | 60               |
+|_Staphylococcus aureus_       | 2,852,092             | 25               | 1,726,487 (61%)                     | 80               |
+|_Staphylococcus epidermidis_  | 2,544,188             | 15               | 1,665,072 (65%)                     | 80               |
+|_Stenotrophomonas maltophilia_| 4,726,726             | 20               | 1,240,438 (26%)                     | 50               |
+
+
+<em> Note: We constructed the core kmer sets using utility script `create_core_reference_set.py`. However users may
+construct core reference set as they see fit.  The file must be placed into 
+`/results/plugins/StrainCompareMer/strain_comparison/resources/core_reference_sets` and must be prefixed with a 
+organism name. </em>
+
 ___
 
-## Installing Plugin
+## Installing Plugins
 
 1. Click releases on the github page.
 2. Download the `Source Code (zip)`
 3. Install the zip file through the Torrent Server Plugin interface
 
 ___
-# Guide
-
-__StrainConstructMer__ will process all the sample on a project.  No input or configuration is required.
 
 
 ### Summary Report
@@ -64,14 +94,14 @@ The summary report appears after the plugin has finished processing samples.  Th
 corresponding to a sample on the run.  
 
 
-| Column Position | Column Name | Column Information |
-|-----------------|-------------|--------------------|
-| 1               | Status      | <ul><li>Icon indicates if the sample __passed QC__ and is suitable for comparison</li><li>Clicking the icon brings up data files including antibiotic genes detected</li></ul> |
-| 2               | Barcode     | Barcode ID of sample  |
-| 3               | Sample      | The sample name of the sample|
-| 4               | Ver         | The sample version.  The sample version is incremented automatically by __StrainConstructMer__. If the `bamfile_path` and `read count` are unique and `Sample_ID` and `Sample` are already in the database the `version` is incremented by one. Otherwise previous data is overwritten.|
-| 5               | Coverage    | The coverage of the sample.  25X is the minimum coverage allowed. |
-| 6               | Genome Size | The estimated genome size based on the number of distinct kmers observed. The genome size must be greater that 1,000,000bp.|
+| Column Position | Column Name         | Column Information |
+|-----------------|---------------------|--------------------|
+| 1               | Status              | <ul><li>Icon indicates if the sample __passed QC__ and is suitable for comparison</li><li>Clicking the icon brings up data files including antibiotic genes detected</li></ul> |
+| 2               | Barcode             | Barcode ID of sample  |
+| 3               | Sample              | The sample name of the sample|
+| 4               | Ver                 | The sample version.  The sample version is incremented automatically by __StrainConstructMer__. If the `bamfile_path` and `read count` are unique and `Sample_ID` and `Sample` are already in the database the `version` is incremented by one. Otherwise previous data is overwritten.|
+| 5               | Coverage            | The coverage of the sample.  25X is the minimum coverage allowed. |
+| 6               | Genome Size         | The estimated genome size based on the number of distinct kmers observed. The genome size must be greater that 1,000,000bp.|
 | 7               | With Expected Range | Is the estimated genome size is within 10% of the minimum and maximum genome size for the top classifier hit.|
 | 8               | Q20 Bases           | The percentage of Q20 base observed in the reads|
 | 9               | Top Classifier Hit  | <ul><li>The top classifier hit</li><li>Clicking link brings up page showing all classifier hits</li></ul>|

@@ -38,10 +38,10 @@ def main():
     plugin_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     s = Strain("{0}_{1}".format(args.sample_name, args.sample_id), 1, False, plugin_path)
 
-
-
     s.sample = "{0}_{1}".format(args.sample_name, args.sample_id)
+    s.strain_id = s.sample
     s.sample_id = args.sample_id
+    s.accession = s.strain_id
 
     # create directory for output
     path_to_create = "StrainTypeMerStrain_{0}".format(s.sample)
@@ -86,23 +86,31 @@ def main():
     s.write_antibiotic_genes()
     s.mlst_profiles, profiles_loaded = mlst_profiler.find_mlst_profiles(s)
     s.hits = species_classifier.compare_references(s.kmers)
-    s.sequester_rrna_reads(bam_file=args.bam_file, gzipped=args.gzipped)
-    s.assemble_rrna_reads()
-    s.extract_rrna_sequence()
+    #s.sequester_rrna_reads(bam_file=args.bam_file, gzipped=args.gzipped)
+    #s.assemble_rrna_reads()
+    #s.extract_rrna_sequence()
     s.write_hits()
     s.write_mlst()
     s.write_hits_to_html()
     s.write_results()
+    s.create_resistant_table()
     # s.create_symlinks()
+
+
 
     render_context = {
         "autorefresh": False,
         "run_name": "test_table",
+        "plugin_name": "StrainConstructMer_DEV",
         "run_user_name": "CLI",
         "plugin_user_name": "CLI",
+        "strain_page_link" : '',
         "date_run": str(datetime.date.today()),
         "plugin_results": simplejson.dumps(plugin_path),
     }
+
+
+
 
     with open(os.path.join(s.strain_directory, "{0}_strain_summary.html".format(s.sample)), "w") as html_fp:
         html_fp.write(render_to_string("barcode_summary.html", render_context))
