@@ -36,7 +36,7 @@ __ARUP StrainConstructMer__ will process all the sample on a project.  No input 
 are complete a summary report will be created. Samples processed by the plugin are placed into a database that 
 __ARUP StrainCompareMer__ can access for comparisons. The database location is set on the global configuration page. 
 It must be identical to the location set in __ARUP StrainCompareMer__ (default location `/results/plugins/scratch/`)
-[see below for notes regarding the StrainConstructMer database.](#Limitations-and-Notes)
+[see below for notes regarding the StrainConstructMer database.](#sample-database-and-backups)
 
 
 ### Summary Report
@@ -232,7 +232,7 @@ ___
 
 ___
 
-#Limitations and Notes
+# Limitations and Notes
 
 ## Sample Database and Backups
 `StrainCompareMer` relies on samples to be run through `StrainConstructMer`. `StrainConstructMer` therefore writes information
