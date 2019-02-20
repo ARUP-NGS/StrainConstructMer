@@ -502,7 +502,13 @@ class Strain(object):
         if base_location is None:
             return None
 
-        run_date = datetime.datetime.strptime(self.run_info.date, "%Y-%m-%dT%H:%M:%S")
+        try:
+            run_date = datetime.datetime.strptime(self.run_info.date, "%Y-%m-%dT%H:%M:%S")
+        except ValueError:
+            run_date = datetime.datetime.today()
+        except TypeError:
+            run_date = datetime.datetime.today()
+
         year_folder = str(run_date.year)
 
         month_folder = "{0:02}_{1}".format(run_date.month, run_date.strftime("%B"))
@@ -928,7 +934,7 @@ class Strain(object):
 
             if histo_path is None:
                 self.histo_plot_path = self.plugin_dir.replace("/results", "") + \
-                                       "/pluginMedia/images/cancel-square-64.png"
+                                       "/pluginMedia/images/cancel-square.png"
             else:
                 self.histo_plot_path = histo_path
 
@@ -941,7 +947,7 @@ class Strain(object):
 
             if histo_path is None:
                 self.histo_plot_path = self.plugin_dir.replace("/results", "") + \
-                                       "/pluginMedia/images/cancel-square-64.png"
+                                       "/pluginMedia/images/cancel-square.png"
             else:
                 self.histo_plot_path = histo_path
 
