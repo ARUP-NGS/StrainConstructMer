@@ -34,7 +34,7 @@ class ARUPStrainConstructMer(IonPlugin):
     most of the strain setup should passed to the strain typing module located in this project
     This entry point handles workflow and builds the UI.
     """
-    version = "1.1.0.2"  # MAJOR.MINOR.REVISION.BUILD
+    version = "1.1.0.3"  # MAJOR.MINOR.REVISION.BUILD
     DB_NAME = "STRAINS.sqlite"
     DB_DIRECTORY = "/results/plugins/scratch/"
     BACKUP_NAME = "STRAINS"
