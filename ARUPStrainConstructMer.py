@@ -34,7 +34,7 @@ class ARUPStrainConstructMer(IonPlugin):
     most of the strain setup should passed to the strain typing module located in this project
     This entry point handles workflow and builds the UI.
     """
-    version = "1.1.0.0"  # MAJOR.MINOR.REVISION.BUILD
+    version = "1.1.0.1"  # MAJOR.MINOR.REVISION.BUILD
     DB_NAME = "STRAINS.sqlite"
     DB_DIRECTORY = "/results/plugins/scratch/"
     BACKUP_NAME = "STRAINS"
@@ -162,7 +162,9 @@ class ARUPStrainConstructMer(IonPlugin):
                 is_strain_typing = True
                 metadata['sample'] = "{0}_{1}".format(metadata["read_count"],
                                                       metadata["bam_file"].strip("_rawlib.basecaller.bam"))
-                metadata['sample_id'] = "BARCODE_CONTAMINATE"
+                metadata['sample_id'] = ""
+
+
 
             if is_strain_typing is False:  # for thermofisher deployment turn off check
                 pass
@@ -173,7 +175,7 @@ class ARUPStrainConstructMer(IonPlugin):
                 sam_id = ""
             if metadata['sample_id'] == "":
                 if sam_id == "":
-                    metadata['sample_id'] = "control"
+                    metadata['sample_id'] = ""
                 else:
                     metadata['sample_id'] = sam_id
             metadata['sample'] = metadata['sample'].replace(" ", "_")
@@ -338,7 +340,9 @@ class ARUPStrainConstructMer(IonPlugin):
 
         self.check_sql_directory()
 
-        run_info = RunInfo(run_dir)
+        # run_info = RunInfo(run_dir)
+        run_info = None
+
 
         # SET UP THE SAMPLES TO PROCESS
         strain_typing_samples = self.validate_strains_for_analysis(plugin_dir, run_info=run_info,
