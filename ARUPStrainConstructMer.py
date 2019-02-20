@@ -34,7 +34,7 @@ class ARUPStrainConstructMer(IonPlugin):
     most of the strain setup should passed to the strain typing module located in this project
     This entry point handles workflow and builds the UI.
     """
-    version = "1.1.0.1"  # MAJOR.MINOR.REVISION.BUILD
+    version = "1.1.0.2"  # MAJOR.MINOR.REVISION.BUILD
     DB_NAME = "STRAINS.sqlite"
     DB_DIRECTORY = "/results/plugins/scratch/"
     BACKUP_NAME = "STRAINS"
@@ -179,7 +179,7 @@ class ARUPStrainConstructMer(IonPlugin):
                 else:
                     metadata['sample_id'] = sam_id
             metadata['sample'] = metadata['sample'].replace(" ", "_")
-            metadata['sample_id'] = metadata['sample_id'].replace(" ", "_").replace("-", "")
+            # metadata['sample_id'] = metadata['sample_id'].replace(" ", "_").replace("-", "")
 
             # THESE ARE THE GUYS WE PROCESS
             if os.path.isfile(metadata['bam_filepath']):  # just check to make sure the bam is present
@@ -340,8 +340,8 @@ class ARUPStrainConstructMer(IonPlugin):
 
         self.check_sql_directory()
 
-        # run_info = RunInfo(run_dir)
-        run_info = None
+        run_info = RunInfo(run_dir)
+        # run_info = None
 
 
         # SET UP THE SAMPLES TO PROCESS

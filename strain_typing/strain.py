@@ -215,11 +215,11 @@ class Strain(object):
         self.__create_symlink_strain_directory()
         # clean_sample_name = self.sample.replace(" ", "_")
 
-        if self.sample_id in [None, ""]:
-            prefix = "{sample}__{version}".format(sample=self.sample, version=self.strain_instance)
-        else:
-            prefix = "{acc}__{strain_id}__{version}".format(acc=self.sample_id, strain_id=self.sample,
-                                                            version=self.strain_instance)
+        #if self.sample_id in [None, ""]:
+        prefix = "{sample}__{version}".format(sample=self.sample, version=self.strain_instance)
+        # else:
+        #     prefix = "{acc}__{strain_id}__{version}".format(acc=self.sample_id, strain_id=self.sample,
+        #                                                    version=self.strain_instance)
 
         # try to symlink these files
         paths_to_link = [self.rrna_reads_path,
@@ -504,9 +504,7 @@ class Strain(object):
 
         try:
             run_date = datetime.datetime.strptime(self.run_info.date, "%Y-%m-%dT%H:%M:%S")
-        except ValueError:
-            run_date = datetime.datetime.today()
-        except TypeError:
+        except:
             run_date = datetime.datetime.today()
 
         year_folder = str(run_date.year)
@@ -519,11 +517,11 @@ class Strain(object):
         if not os.path.exists(os.path.join(base_location, dir_name, year_folder, month_folder)):
             os.mkdir(os.path.join(base_location, dir_name, year_folder, month_folder))
 
-        if self.sample_id in [None, ""]:
-            prefix = "{sample}__{version}".format(sample=self.sample, version=self.strain_instance)
-        else:
-            prefix = "{acc}__{strain_id}__{version}".format(acc=self.sample_id, strain_id=self.sample,
-                                                            version=self.strain_instance)
+        # if self.sample_id in [None, ""]:
+        prefix = "{sample}__{version}".format(sample=self.sample, version=self.strain_instance)
+        # else:
+        #     prefix = "{acc}__{strain_id}__{version}".format(acc=self.sample_id, strain_id=self.sample,
+        #                                                     version=self.strain_instance)
         self.backup_directory = os.path.join(base_location, dir_name, year_folder, month_folder, prefix)
 
     def prepare_metadata_output(self):
@@ -1197,12 +1195,13 @@ class Strain(object):
                 self.barcode_index = v
 
             if k == 'sample_id':
-                self.sample_id = v.replace(" ", "_")
-                if v.strip() == "":
-                    v = "control"
-                self.accession = v.replace(" ", "_")
-                if v.lower() == "control":
-                    self.control_sample = True
+                # self.sample_id = v.replace(" ", "_")
+                self.sample_id = ""
+                # if v.strip() == "":
+                #     v = "control"
+                # self.accession = v.replace(" ", "_")
+                # if v.lower() == "control":
+                #     self.control_sample = True
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1217,7 +1216,7 @@ class Strain(object):
     @sample_id.setter
     def sample_id(self, value):
         # TODO SHOULD WE CHECK WHETHER THE SAMPLE_ID ID VALID
-        self._sample_id = value
+        self._sample_id = ""
 
     @property
     def sample(self):
@@ -1233,7 +1232,7 @@ class Strain(object):
 
     @accession.setter
     def accession(self, value):
-        self._accession = value.replace("-", "")
+        self._accession = ""
 
     @property
     def strain_id(self):
